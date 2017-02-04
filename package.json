@@ -1,0 +1,19 @@
+{
+  "name": "clinyong.coding.me",
+  "version": "1.0.0",
+  "description": "My blog.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.coding.net:clinyong/clinyong.coding.me.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "showdown": "^1.6.3"
+  }
+}
