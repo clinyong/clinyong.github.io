@@ -20,7 +20,7 @@ const html = `
     <div class="container">
         <header class="head">
             <div class="brand">
-                <span><a href="/">Leodots</a></span>
+                <span><a href="/">LeoDots</a></span>
             </div>
         </header>
         <div class="content">
