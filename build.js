@@ -1,4 +1,5 @@
 const fs = require('fs');
+const walk = require('walk');
 
 const showdown = require('showdown'),
     converter = new showdown.Converter();
@@ -26,11 +27,24 @@ function extractMetaData(text) {
     }
 }
 
-const text = fs.readFileSync('./src/1.md', 'utf8');
-const result = extractMetaData(text);
-const {title, date} = result.meta;
-const body = converter.makeHtml(result.content);
-const html = `
+function removeExt(name) {
+    let i = name.indexOf(".")
+    return name.slice(0, i)
+}
+
+const src = "./src"
+const dist = "./archives"
+
+const dirs = fs.readdirSync(src);
+dirs.forEach(file => {
+    const text = fs.readFileSync(`${src}/${file}`, 'utf8');
+    const result = extractMetaData(text);
+    const {
+        title,
+        date
+    } = result.meta;
+    const body = converter.makeHtml(result.content);
+    const html = `
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -60,4 +74,5 @@ const html = `
 </html>
 `;
 
-fs.writeFileSync('./archives/1.html', html, 'utf8');
+    fs.writeFileSync(`${dist}/${removeExt(file)}.html`, html, 'utf8');
+});
