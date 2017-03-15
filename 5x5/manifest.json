@@ -1,0 +1,27 @@
+{
+    "name": "5x5",
+    "short_name": "5x5",
+    "description": "StrongLifts 5x5 Workout",
+    "icons": [
+        {
+            "src": "/image/96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "background_color": "#E53935",
+    "theme_color": "#E53935",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+}
