@@ -4,17 +4,17 @@
     "description": "StrongLifts 5x5 Workout",
     "icons": [
         {
-            "src": "/image/96.png",
+            "src": "/5x5/image/96.png",
             "sizes": "96x96",
             "type": "image/png"
         },
         {
-            "src": "/image/144.png",
+            "src": "/5x5/image/144.png",
             "sizes": "144x144",
             "type": "image/png"
         },
         {
-            "src": "/image/192.png",
+            "src": "/5x5/image/192.png",
             "sizes": "192x192",
             "type": "image/png"
         }
