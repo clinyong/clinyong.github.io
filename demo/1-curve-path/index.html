@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>curve-path</title>
+    <style>
+        @keyframes xAxis {
+            100% {
+                transform: translateX(300px);
+            }
+        }
+
+        @keyframes yAxis {
+            100% {
+                transform: translateY(500px);
+            }
+        }
+
+        .container {
+            border: 2px solid #eee;
+            width: 320px;
+            height: 520px;
+        }
+
+        .dot {
+            animation: xAxis 1.2s linear forwards;
+        }
+
+        .dot::after {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #000;
+            animation: yAxis 1.2s cubic-bezier(.64,-0.07,.81,.21) forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="dot"></div>
+    </div>
+</body>
+
+</html>
