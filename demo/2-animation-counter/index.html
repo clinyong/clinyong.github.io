@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>animation counter</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anonymous+Pro">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            background-color: #353F4D;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        @media screen and (min-width: 770px) {
+            .container {
+                width: 375px;
+                height: 600px;
+                margin: 40px auto 0;
+            }
+        }
+
+        .footer {
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            bottom: 10%;
+        }
+
+        .counter {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: space-between;
+            font-family: "Anonymous Pro";
+            font-weight: bold;
+            position: relative;
+            padding: 80px 10px 0;
+            z-index: 1;
+        }
+
+        .num {
+            color: #fff;
+            font-size: 65px;
+        }
+
+        .count_num {
+            font-size: 150px;
+        }
+
+        .layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%;
+            box-shadow: inset 0px -40px 60px 47px #343F4F;
+        }
+
+        @keyframes button {
+            10% {
+                left: calc(50% - 500px);
+                top: -50px;
+                width: 1000px;
+                height: 1000px;
+                border-radius: 50%;
+                bottom: 0;
+            }
+
+            15% {
+                left: 0;
+                right: 0;
+                top: 0;
+                width: 100%;
+                border-radius: 0;
+                bottom: 0;
+            }
+
+            50% {
+                top: 50%;
+            }
+
+            100% {
+                left: 0;
+                top: 100%;
+                width: 100%;
+                border-radius: 0;
+            }
+        }
+
+        .btn {
+            width: 75px;
+            height: 75px;
+            background-color: #FC6D6D;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 50px;
+            left: calc(50% - 35px);
+        }
+
+        .btn:hover {
+            cursor: pointer;
+        }
+
+        .btn_trigger {
+
+            animation: button 3s linear;
+        }
+
+        .btn_trigger~.counter>.hide_when_counting {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="btn" id="btn"></div>
+        <div class="counter">
+            <span class="num hide_when_counting">20</span>
+            <div id="num" class="num count_num">
+                30
+            </div>
+            <span class="num hide_when_counting">40</span>
+            <div class="layer hide_when_counting">
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const btn = document.getElementById("btn");
+        const counter = document.getElementById("num");
+
+        function count() {
+            const num = Number(counter.innerText);
+            if (num > 0) {
+                counter.innerText = (num - 1).toString();
+                setTimeout(count, 100);
+            } else {
+                counter.innerText = "30";
+                btn.addEventListener("click", startCount);
+                btn.classList.remove("btn_trigger");
+            }
+        }
+
+        function startCount() {
+            this.classList.add("btn_trigger")
+            btn.removeEventListener("click", startCount);
+            count();
+        }
+
+        btn.addEventListener("click", startCount);
+    </script>
+</body>
+
+</html>
