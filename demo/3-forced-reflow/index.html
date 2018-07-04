@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Forced Reflow</title>
+    <style>
+        .sizer {
+            width: 100px;
+            height: 30px;
+            background: green;
+            margin: 1em 0;
+            resize: horizontal;
+            overflow: hidden;
+        }
+
+        .list {
+            margin: 1em 0;
+        }
+
+        .list-content {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            background-color: #ddd;
+            margin-right: .2em;
+            margin-bottom: .2em;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Resize this:</p>
+    <div class="sizer"></div>
+    <p>Then: </p>
+    <div>
+        <button id="set-size">Set block width</button>
+        <select id="selector">
+            <option value="1" selected>Go slow</option>
+            <option value="2">Do it right</option>
+        </select>
+    </div>
+    <div class="list"> </div>
+
+    <script>
+        const sizer = document.querySelector(".sizer");
+        const list = document.querySelector(".list");
+        const selector = document.querySelector("#selector");
+
+        let child = "";
+        for (let i = 0; i < 1000; i++) {
+            child += `<li class="list-content"></li>`
+        }
+        list.innerHTML = child;
+
+        function setWidthSlow() {
+            const listContent = list.children;
+            for (let i = 0; i < listContent.length; i++) {
+                listContent[i].style.width = sizer.offsetWidth + "px";
+            }
+        }
+
+        function setWidthQuick() {
+            const listContent = list.children;
+            const width = sizer.offsetWidth + "px";
+            for (let i = 0; i < listContent.length; i++) {
+                listContent[i].style.width = width;
+            }
+        }
+
+        document.querySelector("#set-size").addEventListener("click", e => {
+            const selectedValue = selector.options[selector.selectedIndex].value;
+            if (selectedValue === "1") {
+                setWidthSlow();
+            } else {
+                setWidthQuick();
+            }
+        })
+    </script>
+</body>
+
+</html>
