@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        Git 仓库迁移技巧 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">Git 仓库迁移技巧</div><div class="sc-jzJRlG fCjyQ"><p>公司内部有两个和 ERP 相关的前端项目，A 和 B。组长接手了重构的任务，要把 A 和 B 合成一个仓库 C。</p>
+<p>在合并完成测试期间，有其他同事还在不断地往 A 上面提交代码。所以组长准备把 A 和 B 这两个仓库删掉，叫我去把上面 master 分支的代码都同步到 C。</p>
+<p>一开始想着一个个 commit 去对比，然后手动复制粘贴过来。当然这种是比较不好的做法。后面查了一下，发现可以跨仓库进行 <code>cherry-pick</code>，嗯，Git 真是强大。</p>
+<p>首先，在 C 仓库里面把 A 仓库设置为 remote</p>
+<pre><code>$ git remote add A xxx
+</code></pre>
+<p>对比一下两个仓库的 master 分支有哪些不同</p>
+<pre><code>$ git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit master..A/master
+</code></pre>
+<p>命令是从 <a href="https://stackoverflow.com/questions/13965391/how-do-i-see-the-commit-differences-between-branches-in-git">stackoverflow</a> 找的，其中 <code>master..A/master</code> 就是我们要对比的两个分支。</p>
+<p>然后可以看到像下面这样的输出</p>
+<pre><code>*   a4b04ab -(A/master) Merge branch 'hotfix/selfStation' into 'master' (4 days ago)
+|\
+| * ba3b7ac - (A/hotfix/selfStation) 增加级连选择更换区域 (9 days ago)
+* |   52badfb - Merge branch 'hotfix/selfStation' into 'master' (2 weeks ago)
+|\ \
+| |/
+| * 3320185 - 增加二级站点名 (2 weeks ago)
+| * 4017a49 - 站点类型，delivery类型传0 (2 weeks ago)
+| * 609cad5 - 屏蔽regionid的传入 (2 weeks ago)
+| * c501a60 - 增加站点区域切换功能 (2 weeks ago)
+| * e2cbf59 - getelderregion 接口调用 (2 weeks ago)
+| * 2d0efd6 - 屏蔽对区域id的手工修改 (2 weeks ago)
+* |   4c4b2be - Merge branch 'hotfix/selfStation' into 'master' (3 weeks ago)
+|\ \
+| |/
+| * 0d70942 - 响应后端自取点亲子规则修改 (3 weeks ago)
+|/
+*   3bc2f37 - Merge branch 'feature/selfStationAdds' into 'master' (3 weeks ago)
+|\
+| * c9bd89d - (A/feature/selfStationAdds) 配合取货优化进行修改 (3 weeks ago)
+| * 46145bd - 增加gitignore (3 weeks ago)
+*   6612a8b - Merge branch 'master' of xxx into hotfix/ExportSignature (4 weeks ago)
+|\
+| *   5e09aec - Merge branch 'hotfix/ExportSignature' (4 weeks ago)
+| |\
+* | | 1fa187b - 修复bug (4 weeks ago)
+| |/
+|/|
+* | f96fab2 - 解决冲突 (4 weeks ago)
+|/
+* e925f96 - add v (4 weeks ago)
+</code></pre>
+<p>知道有哪些 commit 是不一样之后，剩下的工作只需要 <code>cherry-pick</code> 过去就行了。</p>
+<pre><code>$ git cherry-pick xxx
+</code></pre>
+<p>当然每个 commit 这样迁移，不免效率有点低。得益于我们公司严格的 Git 提交流程，可以从上面的提交历史中看到类似这样的 commit</p>
+<pre><code>3bc2f37 - Merge branch 'feature/selfStationAdds' into 'master' (3 weeks ago)
+</code></pre>
+<p>这是因为我们在合并执行了 <a href="https://stackoverflow.com/questions/9069061/what-is-the-difference-between-git-merge-and-git-merge-no-ff">no fast forward</a> 的策略。</p>
+<p>所以我们只需要执行</p>
+<pre><code>$ git cherry-pick -m 1 3bc2f37
+</code></pre>
+<p>这样就能一次性地把 <code>feature/selfStationAdds</code> 都迁移过去。</p></div><div class="sc-jTzLTM frgWBf">2017.06.10</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"Git 仓库迁移技巧","date":"2017.06.10"},"content":"\n公司内部有两个和 ERP 相关的前端项目，A 和 B。组长接手了重构的任务，要把 A 和 B 合成一个仓库 C。\n\n在合并完成测试期间，有其他同事还在不断地往 A 上面提交代码。所以组长准备把 A 和 B 这两个仓库删掉，叫我去把上面 master 分支的代码都同步到 C。\n\n一开始想着一个个 commit 去对比，然后手动复制粘贴过来。当然这种是比较不好的做法。后面查了一下，发现可以跨仓库进行 `cherry-pick`，嗯，Git 真是强大。\n\n首先，在 C 仓库里面把 A 仓库设置为 remote\n\n```\n$ git remote add A xxx\n```\n\n对比一下两个仓库的 master 分支有哪些不同\n\n```\n$ git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit master..A/master\n```\n\n命令是从 [stackoverflow](https://stackoverflow.com/questions/13965391/how-do-i-see-the-commit-differences-between-branches-in-git) 找的，其中 `master..A/master` 就是我们要对比的两个分支。\n\n然后可以看到像下面这样的输出\n\n```\n*   a4b04ab -(A/master) Merge branch 'hotfix/selfStation' into 'master' (4 days ago)\n|\\\n| * ba3b7ac - (A/hotfix/selfStation) 增加级连选择更换区域 (9 days ago)\n* |   52badfb - Merge branch 'hotfix/selfStation' into 'master' (2 weeks ago)\n|\\ \\\n| |/\n| * 3320185 - 增加二级站点名 (2 weeks ago)\n| * 4017a49 - 站点类型，delivery类型传0 (2 weeks ago)\n| * 609cad5 - 屏蔽regionid的传入 (2 weeks ago)\n| * c501a60 - 增加站点区域切换功能 (2 weeks ago)\n| * e2cbf59 - getelderregion 接口调用 (2 weeks ago)\n| * 2d0efd6 - 屏蔽对区域id的手工修改 (2 weeks ago)\n* |   4c4b2be - Merge branch 'hotfix/selfStation' into 'master' (3 weeks ago)\n|\\ \\\n| |/\n| * 0d70942 - 响应后端自取点亲子规则修改 (3 weeks ago)\n|/\n*   3bc2f37 - Merge branch 'feature/selfStationAdds' into 'master' (3 weeks ago)\n|\\\n| * c9bd89d - (A/feature/selfStationAdds) 配合取货优化进行修改 (3 weeks ago)\n| * 46145bd - 增加gitignore (3 weeks ago)\n*   6612a8b - Merge branch 'master' of xxx into hotfix/ExportSignature (4 weeks ago)\n|\\\n| *   5e09aec - Merge branch 'hotfix/ExportSignature' (4 weeks ago)\n| |\\\n* | | 1fa187b - 修复bug (4 weeks ago)\n| |/\n|/|\n* | f96fab2 - 解决冲突 (4 weeks ago)\n|/\n* e925f96 - add v (4 weeks ago)\n```\n\n知道有哪些 commit 是不一样之后，剩下的工作只需要 `cherry-pick` 过去就行了。\n\n```\n$ git cherry-pick xxx\n```\n\n当然每个 commit 这样迁移，不免效率有点低。得益于我们公司严格的 Git 提交流程，可以从上面的提交历史中看到类似这样的 commit\n\n```\n3bc2f37 - Merge branch 'feature/selfStationAdds' into 'master' (3 weeks ago)\n```\n\n这是因为我们在合并执行了 [no fast forward](https://stackoverflow.com/questions/9069061/what-is-the-difference-between-git-merge-and-git-merge-no-ff) 的策略。\n\n所以我们只需要执行\n\n```\n$ git cherry-pick -m 1 3bc2f37\n```\n\n这样就能一次性地把 `feature/selfStationAdds` 都迁移过去。\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

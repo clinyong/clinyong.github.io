@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        什么时候应该用 setState 的回调 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">什么时候应该用 setState 的回调</div><div class="sc-jzJRlG fCjyQ"><p>React 的 setState 支持传一个回调函数，比如像下面这样</p>
+<pre><code class="js language-js">this.setState({
+    name: "leo"
+}, () =&gt; {
+    console.log("done")
+})
+</code></pre>
+<p>当这个 state 更新完之后，就会打印出 done。翻下 React 的源码看下这个回调具体是在什么时候被执行的。在 16.5.2 这个版本的 <code>packages/react-reconciler/src/ReactFiberCommitWork.js</code> 这个文件当中的 <code>commitLifeCycles</code> 函数</p>
+<pre><code class="js language-js">function commitLifeCycles(
+  finishedRoot: FiberRoot,
+  current: Fiber | null,
+  finishedWork: Fiber,
+  committedExpirationTime: ExpirationTime,
+): void {
+    switch (finishedWork.tag) {
+        case ClassComponent:
+        case ClassComponentLazy: {
+            if () {
+            } else {
+                // 执行 componentDidUpdate 函数
+                instance.componentDidUpdate(
+                    prevProps,
+                    prevState,
+                    instance.__reactInternalSnapshotBeforeUpdate,
+                );
+            }
+        }
+    }
+
+    const updateQueue = finishedWork.updateQueue;
+    if (updateQueue !== null) {
+        // 执行 setState 回调
+    }
+}
+</code></pre>
+<p>上面省略了大部分代码，这里可以看到回调函数是在 componentDidUpdate 后面执行的。当然也可以在具体的代码当中加一个 componentDidUpdate 测试下。</p>
+<p>从一开始用 React 到现在，基本是特别少用过 setState 的回调函数。但是这次团队内部做 codereview，发现很多童鞋喜欢像下面这样写</p>
+<pre><code class="js language-js">B() {
+    const count = this.state.count
+    // 一大堆对 count 的处理逻辑
+    this.setState({
+        msg: `Count is ${count}`
+    })
+}
+
+A(count) {
+    this.setState({
+        count
+    }, this.B)
+}
+</code></pre>
+<p>实际代码要比这个复杂，大概就是 A 中 setState 了一个 state，这里是 count。然后在执行回调里面的函数中再调用另外一个 B 方法。这个 B 方法因为依赖 state 当中的 count，所以要放在回调当中执行。</p>
+<p>这里最大的问题就是这个 B 方法后面还会执行 setState，这样导致 A 当中的 setState 根本就没太大作用。而且还有额外的开销，因为要执行一次 render。当然上面还只是嵌套了两层，实际的业务代码当中，有发现嵌套非常多层的。。。也就是在 B 当中的 setState 再设置一个回调 C，然后 C 中又会 setState。。。</p>
+<p>对于上面的方法，完全可以改成下面这样</p>
+<pre><code class="js language-js">B(count) {
+    // 一大堆对 count 的处理逻辑
+    this.setState({
+        msg: `Count is ${count}`
+    })
+}
+
+A(count) {
+    this.setState({
+        count
+    })
+    this.B(count)
+}
+</code></pre>
+<p>因为这里的代码比较简单，所以可能会觉得这个改动没什么。但是对于实际的业务代码，本质的问题也和上面一样。<strong>所以会执行到 setState 的方法，一定是不能放到回调函数里面执行！</strong></p>
+<p>那看起来 setState 的回调函数好像没啥作用了。实际上还是有的，比如下面这样的场景</p>
+<pre><code class="js language-js">class Test {
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.count !== this.state.count) {
+            reportCountChange()
+        }
+    }
+
+    A(count) {
+        this.setState({
+            count: count+1
+        })
+    }
+}
+</code></pre>
+<p>当在 count 发生变化的时候，执行 <code>reportCountChange</code>，这里面的逻辑可以是到服务器端打点或者其它一些不会涉及到 setState 的操作。如果把这步操作当作回调，则处理方式会优雅很多。</p>
+<pre><code class="js language-js">class Test {
+    A(count) {
+        this.setState({
+            count: count+1
+        }, reportCountChange)
+    }
+}
+</code></pre>
+<p>（完）</p></div><div class="sc-jTzLTM frgWBf">2018.10.19</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"什么时候应该用 setState 的回调","date":"2018.10.19"},"content":"\nReact 的 setState 支持传一个回调函数，比如像下面这样\n\n```js\nthis.setState({\n    name: \"leo\"\n}, () =&gt; {\n    console.log(\"done\")\n})\n```\n\n当这个 state 更新完之后，就会打印出 done。翻下 React 的源码看下这个回调具体是在什么时候被执行的。在 16.5.2 这个版本的 `packages/react-reconciler/src/ReactFiberCommitWork.js` 这个文件当中的 `commitLifeCycles` 函数\n\n```js\nfunction commitLifeCycles(\n  finishedRoot: FiberRoot,\n  current: Fiber | null,\n  finishedWork: Fiber,\n  committedExpirationTime: ExpirationTime,\n): void {\n    switch (finishedWork.tag) {\n        case ClassComponent:\n        case ClassComponentLazy: {\n            if () {\n            } else {\n                // 执行 componentDidUpdate 函数\n                instance.componentDidUpdate(\n                    prevProps,\n                    prevState,\n                    instance.__reactInternalSnapshotBeforeUpdate,\n                );\n            }\n        }\n    }\n\n    const updateQueue = finishedWork.updateQueue;\n    if (updateQueue !== null) {\n        // 执行 setState 回调\n    }\n}\n```\n\n上面省略了大部分代码，这里可以看到回调函数是在 componentDidUpdate 后面执行的。当然也可以在具体的代码当中加一个 componentDidUpdate 测试下。\n\n从一开始用 React 到现在，基本是特别少用过 setState 的回调函数。但是这次团队内部做 codereview，发现很多童鞋喜欢像下面这样写\n\n```js\nB() {\n    const count = this.state.count\n    // 一大堆对 count 的处理逻辑\n    this.setState({\n        msg: `Count is ${count}`\n    })\n}\n\nA(count) {\n    this.setState({\n        count\n    }, this.B)\n}\n```\n\n实际代码要比这个复杂，大概就是 A 中 setState 了一个 state，这里是 count。然后在执行回调里面的函数中再调用另外一个 B 方法。这个 B 方法因为依赖 state 当中的 count，所以要放在回调当中执行。\n\n这里最大的问题就是这个 B 方法后面还会执行 setState，这样导致 A 当中的 setState 根本就没太大作用。而且还有额外的开销，因为要执行一次 render。当然上面还只是嵌套了两层，实际的业务代码当中，有发现嵌套非常多层的。。。也就是在 B 当中的 setState 再设置一个回调 C，然后 C 中又会 setState。。。\n\n对于上面的方法，完全可以改成下面这样\n\n```js\nB(count) {\n    // 一大堆对 count 的处理逻辑\n    this.setState({\n        msg: `Count is ${count}`\n    })\n}\n\nA(count) {\n    this.setState({\n        count\n    })\n    this.B(count)\n}\n```\n\n因为这里的代码比较简单，所以可能会觉得这个改动没什么。但是对于实际的业务代码，本质的问题也和上面一样。**所以会执行到 setState 的方法，一定是不能放到回调函数里面执行！**\n\n那看起来 setState 的回调函数好像没啥作用了。实际上还是有的，比如下面这样的场景\n\n```js\nclass Test {\n    componentDidUpdate(prevProps, prevState) {\n        if (prevState.count !== this.state.count) {\n            reportCountChange()\n        }\n    }\n\n    A(count) {\n        this.setState({\n            count: count+1\n        })\n    }\n}\n```\n\n当在 count 发生变化的时候，执行 `reportCountChange`，这里面的逻辑可以是到服务器端打点或者其它一些不会涉及到 setState 的操作。如果把这步操作当作回调，则处理方式会优雅很多。\n\n```js\nclass Test {\n    A(count) {\n        this.setState({\n            count: count+1\n        }, reportCountChange)\n    }\n}\n```\n\n（完）\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        用 VSCode 调试 NodeJS | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">用 VSCode 调试 NodeJS</div><div class="sc-jzJRlG fCjyQ"><p>前两天有个同事问到我如何用 VSCode 调试 NodeJS，我自己调试了好几次，每次都是得重新搜下谷歌。所以写个笔记，下次要用就可以直接翻出来。</p>
+<p>VSCode 官方的文档已经很详细地介绍了整个过程</p>
+<blockquote>
+  <p><a href="https://code.visualstudio.com/docs/nodejs/nodejs-debugging">https://code.visualstudio.com/docs/nodejs/nodejs-debugging</a></p>
+</blockquote>
+<p>这里把几个关键步骤讲下。首先在 VSCode 的 debug 那里增加多一个配置</p>
+<pre><code class="json language-json">{
+    "type": "node",
+    "request": "attach",
+    "name": "Attach to Remote",
+    "address": "127.0.0.1",
+    "port": 9229,
+    "localRoot": "${workspaceFolder}",
+    "remoteRoot": "${workspaceFolder}"
+}
+</code></pre>
+<p>比如我们有下面的 index.js 文件</p>
+<pre><code class="js language-js">function echo() {
+    console.log("Hello")
+}
+
+echo();
+</code></pre>
+<p>在上面的 <code>console.log</code> 这一行打个断点，然后在终端执行</p>
+<pre><code class="shell language-shell">$ node --inspect-brk index.js
+</code></pre>
+<p>然后在 VSCode 里面点击启动调试，能看到断点打在了第一行。点击继续往下执行，就能跳到我们上面设置的断点。</p>
+<p>（完）</p></div><div class="sc-jTzLTM frgWBf">2018.10.27</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"用 VSCode 调试 NodeJS","date":"2018.10.27"},"content":"\n前两天有个同事问到我如何用 VSCode 调试 NodeJS，我自己调试了好几次，每次都是得重新搜下谷歌。所以写个笔记，下次要用就可以直接翻出来。\n\nVSCode 官方的文档已经很详细地介绍了整个过程\n\n&gt; &lt;https://code.visualstudio.com/docs/nodejs/nodejs-debugging>\n\n这里把几个关键步骤讲下。首先在 VSCode 的 debug 那里增加多一个配置\n\n```json\n{\n    \"type\": \"node\",\n    \"request\": \"attach\",\n    \"name\": \"Attach to Remote\",\n    \"address\": \"127.0.0.1\",\n    \"port\": 9229,\n    \"localRoot\": \"${workspaceFolder}\",\n    \"remoteRoot\": \"${workspaceFolder}\"\n}\n```\n\n比如我们有下面的 index.js 文件\n\n```js\nfunction echo() {\n    console.log(\"Hello\")\n}\n\necho();\n```\n\n在上面的 `console.log` 这一行打个断点，然后在终端执行\n\n```shell\n$ node --inspect-brk index.js\n```\n\n然后在 VSCode 里面点击启动调试，能看到断点打在了第一行。点击继续往下执行，就能跳到我们上面设置的断点。\n\n（完）\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

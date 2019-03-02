@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        如何找到 JavaScript 中的 this | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">如何找到 JavaScript 中的 this</div><div class="sc-jzJRlG fCjyQ"><p>这一篇是阅读 You-Dont-Know-JS 中 <a href="https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md">this</a> 章节的笔记。也是我读过的讲 <code>this</code> 最好的教程。</p>
+<h3 id="this">什么是 this</h3>
+<p>首先来看下什么是 <code>this</code>。<code>this</code> 是一个函数调用时候的上下文，注意这里是调用，不是声明。只有当一个函数被调用的时候，<code>this</code> 才会被创建。</p>
+<h3 id="callsite">Call-site</h3>
+<p>然后来看一个叫 call-site 的概念。call-site 是函数被调用时的位置。看下下面的例子。</p>
+<pre><code class="js language-js">function baz() {
+    // call-stack is: `baz`
+    // so, our call-site is in the global scope
+
+    console.log( "baz" );
+    bar(); // &lt;-- call-site for `bar`
+}
+
+function bar() {
+    // call-stack is: `baz` -&gt; `bar`
+    // so, our call-site is in `baz`
+
+    console.log( "bar" );
+    foo(); // &lt;-- call-site for `foo`
+}
+
+function foo() {
+    // call-stack is: `baz` -&gt; `bar` -&gt; `foo`
+    // so, our call-site is in `bar`
+
+    console.log( "foo" );
+}
+
+baz(); // &lt;-- call-site for `baz`
+</code></pre>
+<p>从上面也可以看到，如果要快速定位到 call-site 的话，通过打断点，看 call-stack 的方式最简单了。</p>
+<h3 id="">规则</h3>
+<p>了解了上面的基础之后，剩下的都是规则了。不用担心，规则也只有下面这几条。</p>
+<ul>
+<li>默认绑定</li>
+<li>隐式绑定</li>
+<li>显式绑定</li>
+</ul>
+<h4 id="-1">默认绑定</h4>
+<p>默认绑定是最简单的规则，优先级也是最低的。只有其它规则不适用的时候，这条规则才会起作用。看下下面的代码。</p>
+<pre><code class="js language-js">function foo() {
+    console.log( this.a );
+}
+
+var a = 2;
+
+foo(); // 2
+</code></pre>
+<p>调用 <code>foo</code> 时的 call-site 是全局对象，所以这里输出 2。</p>
+<h4 id="-2">隐式绑定</h4>
+<p>当 call-site 有一个额外的上下文对象的时候，就需要考虑这条规则。上面这样说比较抽象，直接上代码</p>
+<pre><code class="js language-js">function foo() {
+    console.log( this.a );
+}
+
+var obj = {
+    a: 2,
+    foo: foo
+};
+
+obj.foo(); // 2
+</code></pre>
+<p>这里的 <code>obj</code> 就是额外的上下文对象，所以 <code>this</code> 就指向了 <code>obj</code>。如果这个对象前面还有对象的话</p>
+<pre><code class="js language-js">function foo() {
+    console.log( this.a );
+}
+
+var obj2 = {
+    a: 42,
+    foo: foo
+};
+
+var obj1 = {
+    a: 2,
+    obj2: obj2
+};
+
+obj1.obj2.foo(); // 42
+</code></pre>
+<p>这里的 <code>this</code> 还是指向 <code>obj2</code>。接下来是这篇文章的重点，也是判断 <code>this</code> 最容易出错的地方，就是这个上下文对象是有可能丢失的。最常见的就是回调函数的场景。</p>
+<pre><code class="js language-js">function foo() {
+    console.log( this.a );
+}
+
+function doFoo(fn) {
+    // `fn` is just another reference to `foo`
+
+    fn(); // &lt;-- call-site!
+}
+
+var obj = {
+    a: 2,
+    foo: foo
+};
+
+var a = "oops, global"; // `a` also property on global object
+
+doFoo( obj.foo ); // "oops, global"
+</code></pre>
+<p>看下 <code>doFoo</code> 里面的 <code>fn</code> 调用，这里的额外上下文对象已经丢失了，需要运用上面第一条规则，默认绑定。就可以顺利找到 <code>this</code> 是指向 <code>doFoo</code>。</p>
+<p>所以，只有看到 <code>xxx.func()</code> 这种形式的调用时，才会运用第二条规则。</p>
+<h4 id="-3">显式绑定</h4>
+<p>这条规则的优先级最高，当用了 <code>call/apply/bind</code> 这些函数显示指定 <code>this</code> 的时候，需要用这条规则。当然这时候的 <code>this</code> 也很明显了。</p>
+<p>最后要注意的一点，上面三条规则并不适用于 ES6 中的箭头函数。</p>
+<p>（完）</p></div><div class="sc-jTzLTM frgWBf">2018.07.17</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"如何找到 JavaScript 中的 this","date":"2018.07.17"},"content":"\n这一篇是阅读 You-Dont-Know-JS 中 [this](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md) 章节的笔记。也是我读过的讲 `this` 最好的教程。\n\n### 什么是 this\n\n首先来看下什么是 `this`。`this` 是一个函数调用时候的上下文，注意这里是调用，不是声明。只有当一个函数被调用的时候，`this` 才会被创建。\n\n### Call-site\n\n然后来看一个叫 call-site 的概念。call-site 是函数被调用时的位置。看下下面的例子。\n\n```js\nfunction baz() {\n    // call-stack is: `baz`\n    // so, our call-site is in the global scope\n\n    console.log( \"baz\" );\n    bar(); // &lt;-- call-site for `bar`\n}\n\nfunction bar() {\n    // call-stack is: `baz` -&gt; `bar`\n    // so, our call-site is in `baz`\n\n    console.log( \"bar\" );\n    foo(); // &lt;-- call-site for `foo`\n}\n\nfunction foo() {\n    // call-stack is: `baz` -> `bar` -> `foo`\n    // so, our call-site is in `bar`\n\n    console.log( \"foo\" );\n}\n\nbaz(); // &lt;-- call-site for `baz`\n```\n\n从上面也可以看到，如果要快速定位到 call-site 的话，通过打断点，看 call-stack 的方式最简单了。\n\n### 规则\n\n了解了上面的基础之后，剩下的都是规则了。不用担心，规则也只有下面这几条。\n\n- 默认绑定\n- 隐式绑定\n- 显式绑定\n\n#### 默认绑定\n\n默认绑定是最简单的规则，优先级也是最低的。只有其它规则不适用的时候，这条规则才会起作用。看下下面的代码。\n\n```js\nfunction foo() {\n\tconsole.log( this.a );\n}\n\nvar a = 2;\n\nfoo(); // 2\n```\n\n调用 `foo` 时的 call-site 是全局对象，所以这里输出 2。\n\n#### 隐式绑定\n\n当 call-site 有一个额外的上下文对象的时候，就需要考虑这条规则。上面这样说比较抽象，直接上代码\n\n```js\nfunction foo() {\n\tconsole.log( this.a );\n}\n\nvar obj = {\n\ta: 2,\n\tfoo: foo\n};\n\nobj.foo(); // 2\n```\n\n这里的 `obj` 就是额外的上下文对象，所以 `this` 就指向了 `obj`。如果这个对象前面还有对象的话\n\n```js\nfunction foo() {\n\tconsole.log( this.a );\n}\n\nvar obj2 = {\n\ta: 42,\n\tfoo: foo\n};\n\nvar obj1 = {\n\ta: 2,\n\tobj2: obj2\n};\n\nobj1.obj2.foo(); // 42\n```\n\n这里的 `this` 还是指向 `obj2`。接下来是这篇文章的重点，也是判断 `this` 最容易出错的地方，就是这个上下文对象是有可能丢失的。最常见的就是回调函数的场景。\n\n```js\nfunction foo() {\n\tconsole.log( this.a );\n}\n\nfunction doFoo(fn) {\n\t// `fn` is just another reference to `foo`\n\n\tfn(); // &lt;-- call-site!\n}\n\nvar obj = {\n\ta: 2,\n\tfoo: foo\n};\n\nvar a = \"oops, global\"; // `a` also property on global object\n\ndoFoo( obj.foo ); // \"oops, global\"\n```\n\n看下 `doFoo` 里面的 `fn` 调用，这里的额外上下文对象已经丢失了，需要运用上面第一条规则，默认绑定。就可以顺利找到 `this` 是指向 `doFoo`。\n\n所以，只有看到 `xxx.func()` 这种形式的调用时，才会运用第二条规则。\n\n#### 显式绑定\n\n这条规则的优先级最高，当用了 `call/apply/bind` 这些函数显示指定 `this` 的时候，需要用这条规则。当然这时候的 `this` 也很明显了。\n\n最后要注意的一点，上面三条规则并不适用于 ES6 中的箭头函数。\n\n（完）\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

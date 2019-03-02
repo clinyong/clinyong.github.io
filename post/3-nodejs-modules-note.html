@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        NodeJS 模块笔记 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">NodeJS 模块笔记</div><div class="sc-jzJRlG fCjyQ"><p>转前端大半年，对 NodeJS 一知半解，看了官方的<a href="https://nodejs.org/api/modules.html">文档</a>，发现了之前存在的一些盲点。</p>
+<h2 id="accessingthemainmodule">Accessing the main module</h2>
+<pre><code class="js language-js">require.main === module
+</code></pre>
+<p>上面能判断文件是直接通过命令行运行还是被其它文件引用，比如我们有下面两个文件</p>
+<pre><code class="js language-js">// a.js
+console.log('a: ', require.main === module)
+
+// b.js
+const a = require('./a)
+console.log('b: ', require.main === module)
+</code></pre>
+<p>在命令行运行 <code>b.js</code></p>
+<pre><code>$ node ./b.js
+a:  false
+b:  true
+</code></pre>
+<h2 id="themodulewrapper">The module wrapper</h2>
+<p>每个模块在被执行之前，会被包裹成像下面这样</p>
+<pre><code class="js language-js">(function (exports, require, module, __filename, __dirname) {
+    // 实际的模块代码
+});
+</code></pre>
+<p>被包裹成这样一个函数之后，模块的全局变量的作用域被限制在了函数内部，也就是模块内部。而函数的形参，就是我们在模块内部经常用的几个关键字。
+这几个参数都是在函数被调用时从外部传进来的。执行过程大概像下面这样</p>
+<pre><code class="js language-js">function require() {}
+let module = {}
+module.exports = {}
+
+(function (exports, require, module, __filename, __dirname) {
+    // 实际的模块代码
+})(module.exports, require, module);
+</code></pre>
+<p>我们能看到 <code>exports</code> 是定义在 <code>module</code> 上面的，当我们想让整个模块变成一个函数的时候，只能赋值给 <code>module.exports</code> 而不是 <code>exports</code>。</p>
+<h2 id="">依赖查找顺序</h2>
+<p>官方给的查找顺序伪代码</p>
+<pre><code>require(X) from module at path Y
+1. If X is a core module,
+   a. return the core module
+   b. STOP
+2. If X begins with './' or '/' or '../'
+   a. LOAD_AS_FILE(Y + X)
+   b. LOAD_AS_DIRECTORY(Y + X)
+3. LOAD_NODE_MODULES(X, dirname(Y))
+4. THROW "not found"
+
+LOAD_AS_FILE(X)
+1. If X is a file, load X as JavaScript text.  STOP
+2. If X.js is a file, load X.js as JavaScript text.  STOP
+3. If X.json is a file, parse X.json to a JavaScript Object.  STOP
+4. If X.node is a file, load X.node as binary addon.  STOP
+
+LOAD_AS_DIRECTORY(X)
+1. If X/package.json is a file,
+   a. Parse X/package.json, and look for "main" field.
+   b. let M = X + (json main field)
+   c. LOAD_AS_FILE(M)
+2. If X/index.js is a file, load X/index.js as JavaScript text.  STOP
+3. If X/index.json is a file, parse X/index.json to a JavaScript object. STOP
+4. If X/index.node is a file, load X/index.node as binary addon.  STOP
+
+LOAD_NODE_MODULES(X, START)
+1. let DIRS=NODE_MODULES_PATHS(START)
+2. for each DIR in DIRS:
+   a. LOAD_AS_FILE(DIR/X)
+   b. LOAD_AS_DIRECTORY(DIR/X)
+
+NODE_MODULES_PATHS(START)
+1. let PARTS = path split(START)
+2. let I = count of PARTS - 1
+3. let DIRS = []
+4. while I &gt;= 0,
+   a. if PARTS[I] = "node_modules" CONTINUE
+   b. DIR = path join(PARTS[0 .. I] + "node_modules")
+   c. DIRS = DIRS + DIR
+   d. let I = I - 1
+5. return DIRS
+</code></pre>
+<ul>
+<li><code>core module</code> 指的是像 <code>fs</code>，<code>path</code> 这样的库，这种库的优先级也是最高</li>
+<li>在找文件的时候，之前只是认为会自动补全 <code>js</code> 后缀，其实还会补全 <code>json</code>，<code>node</code>两种后缀</li>
+<li>在找目录的时候，还会找 <code>package.json</code>，通过里面的 <code>main</code> 字段去找文件</li>
+<li><code>NODE_MODULES_PATHS</code> 说明了在找 <code>NODE_MODULES</code> 的时候，会一级一级目录<strong>往上</strong>找，直到 <code>/node_modules</code> 这个路径</li>
+</ul>
+<h2 id="node_path">NODE_PATH</h2>
+<p>如果设置了 <code>NODE_PATH</code> 这个环境变量，当上面的算法找不到模块之后，NodeJS 就会从 <code>NODE_PATH</code> 里面查找。不过这个变量官方不建议设置。</p>
+<h2 id="-1">缓存</h2>
+<p>当第一次引用某个模块之后，这个模块就会被缓存，之后每次调用都会返回相同的对象。这里的相同模块不是指名字一样，而是要求通过上面算法求出来的路径是一样的。</p>
+<p>这里的路径是区分大小写的，即使 <code>./foo</code> 和 <code>./FOO</code> 是指向相同的文件，但是还是会被分开缓存。</p>
+<h2 id="-2">循环引用</h2>
+<p>考虑有下面的情况</p>
+<p>a.js</p>
+<pre><code class="js language-js">console.log('a starting');
+exports.done = false;
+const b = require('./b.js');
+console.log('in a, b.done = %j', b.done);
+exports.done = true;
+console.log('a done');
+</code></pre>
+<p>b.js</p>
+<pre><code class="js language-js">console.log('b starting');
+exports.done = false;
+const a = require('./a.js');
+console.log('in b, a.done = %j', a.done);
+exports.done = true;
+console.log('b done');
+</code></pre>
+<p>main.js</p>
+<pre><code class="js language-js">console.log('main starting');
+const a = require('./a.js');
+const b = require('./b.js');
+console.log('in main, a.done=%j, b.done=%j', a.done, b.done);
+</code></pre>
+<p>可以看到，上面 <code>a.js</code> 加载了 <code>b.js</code>，然后 <code>b.js</code> 里面又加载了 <code>a.js</code>，这样就造成了循环引用。
+NodeJS 为了让程序能正常运行，当 <code>b.js</code> 加载 <code>a.js</code> 的时候，<code>a.js</code> 会导出当前的 <code>exports</code>，让 <code>b.js</code> 能顺利加载完。</p>
+<p>当我们运行 <code>main.js</code> 的时候，可以看到下面的输出结果</p>
+<pre><code>$ node main.js
+main starting
+a starting
+b starting
+in b, a.done = false
+b done
+in a, b.done = true
+a done
+in main, a.done=true, b.done=true
+</code></pre>
+<p>虽然 NodeJS 能帮我们解决循环引用的问题，但是在实际代码中还是尽量避免这种情况发生比较好。</p></div><div class="sc-jTzLTM frgWBf">2017.02.23</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"NodeJS 模块笔记","date":"2017.02.23"},"content":"\n转前端大半年，对 NodeJS 一知半解，看了官方的[文档](https://nodejs.org/api/modules.html)，发现了之前存在的一些盲点。\n\n## Accessing the main module\n\n```js\nrequire.main === module\n```\n\n上面能判断文件是直接通过命令行运行还是被其它文件引用，比如我们有下面两个文件\n\n```js\n// a.js\nconsole.log('a: ', require.main === module)\n\n// b.js\nconst a = require('./a)\nconsole.log('b: ', require.main === module)\n```\n\n在命令行运行 `b.js`\n\n```\n$ node ./b.js\na:  false\nb:  true\n```\n\n## The module wrapper\n\n每个模块在被执行之前，会被包裹成像下面这样\n\n```js\n(function (exports, require, module, __filename, __dirname) {\n    // 实际的模块代码\n});\n```\n\n被包裹成这样一个函数之后，模块的全局变量的作用域被限制在了函数内部，也就是模块内部。而函数的形参，就是我们在模块内部经常用的几个关键字。\n这几个参数都是在函数被调用时从外部传进来的。执行过程大概像下面这样\n\n```js\n\nfunction require() {}\nlet module = {}\nmodule.exports = {}\n\n(function (exports, require, module, __filename, __dirname) {\n    // 实际的模块代码\n})(module.exports, require, module);\n```\n\n我们能看到 `exports` 是定义在 `module` 上面的，当我们想让整个模块变成一个函数的时候，只能赋值给 `module.exports` 而不是 `exports`。\n\n## 依赖查找顺序\n\n官方给的查找顺序伪代码\n\n```\nrequire(X) from module at path Y\n1. If X is a core module,\n   a. return the core module\n   b. STOP\n2. If X begins with './' or '/' or '../'\n   a. LOAD_AS_FILE(Y + X)\n   b. LOAD_AS_DIRECTORY(Y + X)\n3. LOAD_NODE_MODULES(X, dirname(Y))\n4. THROW \"not found\"\n\nLOAD_AS_FILE(X)\n1. If X is a file, load X as JavaScript text.  STOP\n2. If X.js is a file, load X.js as JavaScript text.  STOP\n3. If X.json is a file, parse X.json to a JavaScript Object.  STOP\n4. If X.node is a file, load X.node as binary addon.  STOP\n\nLOAD_AS_DIRECTORY(X)\n1. If X/package.json is a file,\n   a. Parse X/package.json, and look for \"main\" field.\n   b. let M = X + (json main field)\n   c. LOAD_AS_FILE(M)\n2. If X/index.js is a file, load X/index.js as JavaScript text.  STOP\n3. If X/index.json is a file, parse X/index.json to a JavaScript object. STOP\n4. If X/index.node is a file, load X/index.node as binary addon.  STOP\n\nLOAD_NODE_MODULES(X, START)\n1. let DIRS=NODE_MODULES_PATHS(START)\n2. for each DIR in DIRS:\n   a. LOAD_AS_FILE(DIR/X)\n   b. LOAD_AS_DIRECTORY(DIR/X)\n\nNODE_MODULES_PATHS(START)\n1. let PARTS = path split(START)\n2. let I = count of PARTS - 1\n3. let DIRS = []\n4. while I &gt;= 0,\n   a. if PARTS[I] = \"node_modules\" CONTINUE\n   b. DIR = path join(PARTS[0 .. I] + \"node_modules\")\n   c. DIRS = DIRS + DIR\n   d. let I = I - 1\n5. return DIRS\n```\n\n- `core module` 指的是像 `fs`，`path` 这样的库，这种库的优先级也是最高\n- 在找文件的时候，之前只是认为会自动补全 `js` 后缀，其实还会补全 `json`，`node`两种后缀\n- 在找目录的时候，还会找 `package.json`，通过里面的 `main` 字段去找文件\n- `NODE_MODULES_PATHS` 说明了在找 `NODE_MODULES` 的时候，会一级一级目录**往上**找，直到 `/node_modules` 这个路径\n\n## NODE_PATH\n\n如果设置了 `NODE_PATH` 这个环境变量，当上面的算法找不到模块之后，NodeJS 就会从 `NODE_PATH` 里面查找。不过这个变量官方不建议设置。\n\n## 缓存\n\n当第一次引用某个模块之后，这个模块就会被缓存，之后每次调用都会返回相同的对象。这里的相同模块不是指名字一样，而是要求通过上面算法求出来的路径是一样的。\n\n这里的路径是区分大小写的，即使 `./foo` 和 `./FOO` 是指向相同的文件，但是还是会被分开缓存。\n\n## 循环引用\n\n考虑有下面的情况\n\na.js\n\n```js\nconsole.log('a starting');\nexports.done = false;\nconst b = require('./b.js');\nconsole.log('in a, b.done = %j', b.done);\nexports.done = true;\nconsole.log('a done');\n```\n\nb.js\n\n```js\nconsole.log('b starting');\nexports.done = false;\nconst a = require('./a.js');\nconsole.log('in b, a.done = %j', a.done);\nexports.done = true;\nconsole.log('b done');\n```\n\nmain.js\n\n```js\nconsole.log('main starting');\nconst a = require('./a.js');\nconst b = require('./b.js');\nconsole.log('in main, a.done=%j, b.done=%j', a.done, b.done);\n```\n\n可以看到，上面 `a.js` 加载了 `b.js`，然后 `b.js` 里面又加载了 `a.js`，这样就造成了循环引用。\nNodeJS 为了让程序能正常运行，当 `b.js` 加载 `a.js` 的时候，`a.js` 会导出当前的 `exports`，让 `b.js` 能顺利加载完。\n\n当我们运行 `main.js` 的时候，可以看到下面的输出结果\n\n```\n$ node main.js\nmain starting\na starting\nb starting\nin b, a.done = false\nb done\nin a, b.done = true\na done\nin main, a.done=true, b.done=true\n```\n\n虽然 NodeJS 能帮我们解决循环引用的问题，但是在实际代码中还是尽量避免这种情况发生比较好。\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

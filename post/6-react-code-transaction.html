@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        阅读 React 源码之 Transaction | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">阅读 React 源码之 Transaction</div><div class="sc-jzJRlG fCjyQ"><p>调试过 React 的童鞋一定见过下面这样的调用栈</p>
+<p><img src="http://ol07x5ssf.bkt.clouddn.com/Screen%20Shot%202017-08-19%20at%2017.10.07.png" alt="" /></p>
+<p>图中的 <code>perform</code> 就是事务的核心方法（在这里把 Transaction 翻译为事务）。事实上，整个 React 的更新，渲染都是处在事务当中。那到底什么是事务呢？</p>
+<p>在 React 的源码中有一副图形象地解释了事务</p>
+<pre><code class="js language-js">/**
+ *
+ * &lt;pre&gt;
+ *                       wrappers (injected at creation time)
+ *                                      +        +
+ *                                      |        |
+ *                    +-----------------|--------|--------------+
+ *                    |                 v        |              |
+ *                    |      +---------------+   |              |
+ *                    |   +--|    wrapper1   |---|----+         |
+ *                    |   |  +---------------+   v    |         |
+ *                    |   |          +-------------+  |         |
+ *                    |   |     +----|   wrapper2  |--------+   |
+ *                    |   |     |    +-------------+  |     |   |
+ *                    |   |     |                     |     |   |
+ *                    |   v     v                     v     v   | wrapper
+ *                    | +---+ +---+   +---------+   +---+ +---+ | invariants
+ * perform(anyMethod) | |   | |   |   |         |   |   | |   | | maintained
+ * +-----------------&gt;|-|---|-|---|--&gt;|anyMethod|---|---|-|---|-|--------&gt;
+ *                    | |   | |   |   |         |   |   | |   | |
+ *                    | |   | |   |   |         |   |   | |   | |
+ *                    | |   | |   |   |         |   |   | |   | |
+ *                    | +---+ +---+   +---------+   +---+ +---+ |
+ *                    |  initialize                    close    |
+ *                    +-----------------------------------------+
+ * &lt;/pre&gt;
+ *
+ */
+</code></pre>
+<p>一个事务开始的时候，会执行所有 wrapper 的 <code>initialize</code> 的方法，做一些初始化的工作。然后再执行我们传入的方法。最后会执行所有 wrapper 的 <code>close</code> 方法，做一些收尾的工作。看个例子。</p>
+<pre><code class="js language-js">const Transaction = require("./Transaction");
+
+const TEST_WRAPPER = {
+    initialize: function() {
+        console.log("initialize...");
+    },
+    close: function() {
+        console.log("close...");
+    }
+};
+
+const TRANSACTION_WRAPPERS = [TEST_WRAPPER];
+
+function TestTransaction() {
+    this.reinitializeTransaction();
+}
+
+// 注入 wrapper
+Object.assign(TestTransaction.prototype, Transaction, {
+    getTransactionWrappers: function() {
+        return TRANSACTION_WRAPPERS;
+    }
+});
+
+const testTransaction = new TestTransaction();
+testTransaction.perform(function() {
+    console.log("perform!!!");
+});
+</code></pre>
+<p>运行上面的代码，会得到下面这样的输出</p>
+<pre><code>$ node ./index.js
+initialize...
+perform!!!
+close...
+</code></pre>
+<p>这个例子的完整代码已经放到 <a href="https://gist.github.com/clinyong/ae17889b6037a590f99dd35308d2f53e">gist</a>，这里还要注意一点的是，事务是可以嵌套的，比如我在事务 A 的 perform 里面调用事务 B。</p>
+<p>知道了事务是什么之后，我们再来看看<a href="https://github.com/facebook/react/blob/master/src/renderers/shared/stack/reconciler/Transaction.js">内部</a>是怎样实现的。</p>
+<pre><code class="js language-js">function perform(method, scope, a, b, c, d, e, f) {
+  if (this._isInTransaction) {
+      // 不能同时执行同一个事务
+      console.error("Transaction.perform(...): Cannot initialize a transaction when there is already an outstanding transaction.");
+      return;
+  }
+
+  var errorThrown;
+  try {
+    this._isInTransaction = true;
+    errorThrown = true;
+    this.initializeAll(0); // 执行所有 Wrapper 的初始化方法
+    ret = method.call(scope, a, b, c, d, e, f); // 执行我们传入的方法
+    errorThrown = false;
+  } finally {
+    try {
+      if (errorThrown) {
+        try {
+          this.closeAll(0);
+        } catch (e) {} 
+      } else {
+         this.closeAll(0);
+      }
+    } finally {
+      this._isInTransaction = false;
+    }
+  }
+}
+</code></pre>
+<p>上面是简化过完的代码，逻辑和源码里面是一样的。可以看到，整个 perform 也很简单。细心的童鞋应该能发现，这里大部分函数的执行并没有用 <code>catch</code> 来捕获异常，而是用了 <code>errorThrown</code> 这个标志来判断函数的执行情况。官方在代码里面的注释是说直接用 <code>catch</code> 的方式会让 Debug 变得很困难。再来看下初始化部分的代码</p>
+<pre><code class="js language-js">function initializeAll(startIndex) {
+  for (var i = startIndex; i &lt; transactionWrappers.length; i++) {
+    var wrapper = transactionWrappers[i];
+    try {
+      this.wrapperInitData[i] = OBSERVED_ERROR;
+      this.wrapperInitData[i] = wrapper.initialize
+        ? wrapper.initialize.call(this)
+        : null;
+    } finally {
+      if (this.wrapperInitData[i] === OBSERVED_ERROR) {
+        // 如果某个初始化的过程出错，让这个错误一直往上抛，但是继续执行剩下的初始化函数
+        try {
+          this.initializeAll(i + 1);
+        } catch (err) {}
+      }
+    }
+  }
+}
+</code></pre>
+<p>这里也是对错误进行了特殊处理，抛出第一个出错的 wrapper 之后，会继续执行剩下的 wrapper。每个 wrapper 执行完的返回值会保存到 <code>this.wrapperInitData[i]</code> 当中。</p>
+<pre><code class="js language-js">function closeAll(startIndex) {
+  for (var i = startIndex; i &lt; transactionWrappers.length; i++) {
+    var wrapper = transactionWrappers[i];
+    var initData = this.wrapperInitData[i];
+    var errorThrown;
+    try {
+      errorThrown = true;
+      if (initData !== OBSERVED_ERROR &amp;&amp; wrapper.close) {
+        // 初始化拿到的返回值会作为参数传给 close
+        wrapper.close.call(this, initData);
+      }
+      errorThrown = false;
+    } finally {
+      if (errorThrown) {
+        try {
+          this.closeAll(i + 1);
+        } catch (e) {}
+      }
+    }
+  }
+
+  this.wrapperInitData.length = 0;
+}
+</code></pre>
+<p>这里的逻辑和初始化的基本一致，只是会把初始化拿到的返回值会作为参数传给 <code>close</code>。把三个主要是执行方法都看了一遍之后，还有最后一个问题，wrappers 是怎么初始化的呢？答案就在 <code>reinitializeTransaction</code> 这个方法里面。</p>
+<pre><code class="js language-js">function reinitializeTransaction() {
+    this.transactionWrappers = this.getTransactionWrappers();
+    if (this.wrapperInitData) {
+        this.wrapperInitData.length = 0;
+    } else {
+        this.wrapperInitData = [];
+    }
+    this._isInTransaction = false;
+}
+</code></pre>
+<p>直接调用 <code>getTransactionWrappers</code> 就能拿到我们传入的 wrappers，接着是各种状态的初始化。这里用 <code>this.wrapperInitData.length = 0</code> 的方式把数组清空，可以避免重复创建数组。</p></div><div class="sc-jTzLTM frgWBf">2017.08.19</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"阅读 React 源码之 Transaction","date":"2017.08.19"},"content":"\n调试过 React 的童鞋一定见过下面这样的调用栈\n\n![](http://ol07x5ssf.bkt.clouddn.com/Screen%20Shot%202017-08-19%20at%2017.10.07.png)\n\n图中的 `perform` 就是事务的核心方法（在这里把 Transaction 翻译为事务）。事实上，整个 React 的更新，渲染都是处在事务当中。那到底什么是事务呢？\n\n在 React 的源码中有一副图形象地解释了事务\n\n```js\n/**\n *\n * &lt;pre&gt;\n *                       wrappers (injected at creation time)\n *                                      +        +\n *                                      |        |\n *                    +-----------------|--------|--------------+\n *                    |                 v        |              |\n *                    |      +---------------+   |              |\n *                    |   +--|    wrapper1   |---|----+         |\n *                    |   |  +---------------+   v    |         |\n *                    |   |          +-------------+  |         |\n *                    |   |     +----|   wrapper2  |--------+   |\n *                    |   |     |    +-------------+  |     |   |\n *                    |   |     |                     |     |   |\n *                    |   v     v                     v     v   | wrapper\n *                    | +---+ +---+   +---------+   +---+ +---+ | invariants\n * perform(anyMethod) | |   | |   |   |         |   |   | |   | | maintained\n * +----------------->|-|---|-|---|-->|anyMethod|---|---|-|---|-|-------->\n *                    | |   | |   |   |         |   |   | |   | |\n *                    | |   | |   |   |         |   |   | |   | |\n *                    | |   | |   |   |         |   |   | |   | |\n *                    | +---+ +---+   +---------+   +---+ +---+ |\n *                    |  initialize                    close    |\n *                    +-----------------------------------------+\n * &lt;/pre>\n *\n */\n```\n\n一个事务开始的时候，会执行所有 wrapper 的 `initialize` 的方法，做一些初始化的工作。然后再执行我们传入的方法。最后会执行所有 wrapper 的 `close` 方法，做一些收尾的工作。看个例子。\n\n```js\nconst Transaction = require(\"./Transaction\");\n\nconst TEST_WRAPPER = {\n\tinitialize: function() {\n\t\tconsole.log(\"initialize...\");\n\t},\n\tclose: function() {\n\t\tconsole.log(\"close...\");\n\t}\n};\n\nconst TRANSACTION_WRAPPERS = [TEST_WRAPPER];\n\nfunction TestTransaction() {\n\tthis.reinitializeTransaction();\n}\n\n// 注入 wrapper\nObject.assign(TestTransaction.prototype, Transaction, {\n\tgetTransactionWrappers: function() {\n\t\treturn TRANSACTION_WRAPPERS;\n\t}\n});\n\nconst testTransaction = new TestTransaction();\ntestTransaction.perform(function() {\n    console.log(\"perform!!!\");\n});\n```\n\n运行上面的代码，会得到下面这样的输出\n\n```\n$ node ./index.js\ninitialize...\nperform!!!\nclose...\n```\n\n这个例子的完整代码已经放到 [gist](https://gist.github.com/clinyong/ae17889b6037a590f99dd35308d2f53e)，这里还要注意一点的是，事务是可以嵌套的，比如我在事务 A 的 perform 里面调用事务 B。\n\n知道了事务是什么之后，我们再来看看[内部](https://github.com/facebook/react/blob/master/src/renderers/shared/stack/reconciler/Transaction.js)是怎样实现的。\n\n```js\nfunction perform(method, scope, a, b, c, d, e, f) {\n  if (this._isInTransaction) {\n      // 不能同时执行同一个事务\n      console.error(\"Transaction.perform(...): Cannot initialize a transaction when there is already an outstanding transaction.\");\n      return;\n  }\n\n  var errorThrown;\n  try {\n    this._isInTransaction = true;\n    errorThrown = true;\n    this.initializeAll(0); // 执行所有 Wrapper 的初始化方法\n    ret = method.call(scope, a, b, c, d, e, f); // 执行我们传入的方法\n    errorThrown = false;\n  } finally {\n    try {\n      if (errorThrown) {\n        try {\n          this.closeAll(0);\n        } catch (e) {} \n      } else {\n         this.closeAll(0);\n      }\n    } finally {\n      this._isInTransaction = false;\n    }\n  }\n}\n```\n\n上面是简化过完的代码，逻辑和源码里面是一样的。可以看到，整个 perform 也很简单。细心的童鞋应该能发现，这里大部分函数的执行并没有用 `catch` 来捕获异常，而是用了 `errorThrown` 这个标志来判断函数的执行情况。官方在代码里面的注释是说直接用 `catch` 的方式会让 Debug 变得很困难。再来看下初始化部分的代码\n\n```js\nfunction initializeAll(startIndex) {\n  for (var i = startIndex; i &lt; transactionWrappers.length; i++) {\n    var wrapper = transactionWrappers[i];\n    try {\n      this.wrapperInitData[i] = OBSERVED_ERROR;\n      this.wrapperInitData[i] = wrapper.initialize\n        ? wrapper.initialize.call(this)\n        : null;\n    } finally {\n      if (this.wrapperInitData[i] === OBSERVED_ERROR) {\n        // 如果某个初始化的过程出错，让这个错误一直往上抛，但是继续执行剩下的初始化函数\n        try {\n          this.initializeAll(i + 1);\n        } catch (err) {}\n      }\n    }\n  }\n}\n```\n\n这里也是对错误进行了特殊处理，抛出第一个出错的 wrapper 之后，会继续执行剩下的 wrapper。每个 wrapper 执行完的返回值会保存到 `this.wrapperInitData[i]` 当中。\n\n```js\nfunction closeAll(startIndex) {\n  for (var i = startIndex; i &lt; transactionWrappers.length; i++) {\n    var wrapper = transactionWrappers[i];\n    var initData = this.wrapperInitData[i];\n    var errorThrown;\n    try {\n      errorThrown = true;\n      if (initData !== OBSERVED_ERROR && wrapper.close) {\n        // 初始化拿到的返回值会作为参数传给 close\n        wrapper.close.call(this, initData);\n      }\n      errorThrown = false;\n    } finally {\n      if (errorThrown) {\n        try {\n          this.closeAll(i + 1);\n        } catch (e) {}\n      }\n    }\n  }\n\n  this.wrapperInitData.length = 0;\n}\n```\n\n这里的逻辑和初始化的基本一致，只是会把初始化拿到的返回值会作为参数传给 `close`。把三个主要是执行方法都看了一遍之后，还有最后一个问题，wrappers 是怎么初始化的呢？答案就在 `reinitializeTransaction` 这个方法里面。\n\n```js\nfunction reinitializeTransaction() {\n    this.transactionWrappers = this.getTransactionWrappers();\n    if (this.wrapperInitData) {\n        this.wrapperInitData.length = 0;\n    } else {\n        this.wrapperInitData = [];\n    }\n    this._isInTransaction = false;\n}\n```\n\n直接调用 `getTransactionWrappers` 就能拿到我们传入的 wrappers，接着是各种状态的初始化。这里用 `this.wrapperInitData.length = 0` 的方式把数组清空，可以避免重复创建数组。\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

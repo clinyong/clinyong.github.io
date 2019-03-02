@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        inline block 元素的基线位置 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">inline block 元素的基线位置</div><div class="sc-jzJRlG fCjyQ"><p>今天碰到了一个垂直对齐的问题</p>
+<pre><code class="html language-html">&lt;style&gt;
+    .content {
+        display: inline-block;
+        width: 100px;
+        height: 30px;
+        border: 1px solid black;
+    }
+&lt;/style&gt;
+
+&lt;div class="box1"&gt;
+    &lt;span&gt;xxx&lt;/span&gt;
+    &lt;div class="content"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="box2"&gt;
+    &lt;span&gt;xxx&lt;/span&gt;
+    &lt;div class="content"&gt;
+    xxx
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p><code>box1</code> 里面左边的文字和右边盒子的下方对齐，<code>box2</code> 中左边的文字和右边盒子的上方对齐。一开始觉得特别奇怪，后面想起了在张鑫旭大大的<a href="https://book.douban.com/subject/27615777/">CSS世界</a>里面有提到</p>
+<blockquote>
+  <p>一个 inline-block 元素，如果里面没有内联元素，或者 overflow 不是 visible，则该元素的基线就是其 margin 底边缘；否则其基线就是元素里面最后一行内联元素的基线。</p>
+</blockquote>
+<p>虽然这本书非常的好，但是还是想着规范里面有没有对这种情况的说明呢？搜了一下谷歌，<a href="https://www.w3.org/TR/CSS21/visudet.html#inlineblock-width">确实有</a></p>
+<blockquote>
+  <p>The baseline of an 'inline-block' is the baseline of its last line box in the normal flow, unless it has either no in-flow line boxes or if its 'overflow' property has a computed value other than 'visible', in which case the baseline is the bottom margin edge.</p>
+</blockquote>
+<p>为了验证确实是与 margin 的底边缘对齐，设置一个大一点的 margin</p>
+<pre><code class="html language-html">&lt;style&gt;
+    .content {
+        display: inline-block;
+        width: 100px;
+        height: 30px;
+        border: 1px solid black;
+        margin-bottom: 20px;
+    }
+&lt;/style&gt;
+
+&lt;div class="box"&gt;
+    &lt;span&gt;xxx&lt;/span&gt;
+    &lt;div class="content"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p><code>overflow</code> 的值不为 <code>visible</code> 的情况</p>
+<pre><code class="html language-html">&lt;style&gt;
+    .content {
+        display: inline-block;
+        width: 100px;
+        height: 30px;
+        border: 1px solid black;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+&lt;/style&gt;
+
+&lt;div class="box"&gt;
+    &lt;span&gt;xxx&lt;/span&gt;
+    &lt;div class="content"&gt;
+    xxx
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>这里还能引出一个比较常见的问题，就是图片和文字放一起会出现底边距的情况</p>
+<pre><code class="html language-html">&lt;style&gt;
+    .container {
+        border: 1px solid black;
+    }
+&lt;/style&gt;
+
+&lt;div class="container"&gt;
+    &lt;img src="https://developer.cdn.mozilla.net/media/img/mdn-logo-sm.png"&gt;
+&lt;/div&gt;
+</code></pre>
+<p>可以看到图片的底部有边距，这是因为图片默认是 <code>inline-block</code> 的元素，这时候图片的 margin 底边距会与 <a href="https://www.w3.org/TR/CSS21/visudet.html#strut">strut</a> 产生对齐。这里的 <code>strut</code> 相当于前面的 <code>xxx</code> 内联元素，是浏览器自动产生的。</p>
+<p>知道了 <code>inline-block</code> 元素的基线位置之后，自然会想到那 <code>block</code> 元素的基线呢？这里讨论基线主要是为了知道如何与同一行元素进行垂直对齐，而 <code>block</code> 元素默认就是占据一整行，所以也就不存在垂直对齐的情况。</p></div><div class="sc-jTzLTM frgWBf">2018.05.26</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"inline block 元素的基线位置","date":"2018.05.26"},"content":"\n今天碰到了一个垂直对齐的问题\n\n```html\n&lt;style&gt;\n    .content {\n        display: inline-block;\n        width: 100px;\n        height: 30px;\n        border: 1px solid black;\n    }\n&lt;/style>\n\n&lt;div class=\"box1\">\n    &lt;span>xxx&lt;/span>\n    &lt;div class=\"content\">\n    &lt;/div>\n&lt;/div>\n\n&lt;div class=\"box2\">\n    &lt;span>xxx&lt;/span>\n    &lt;div class=\"content\">\n    xxx\n    &lt;/div>\n&lt;/div>\n```\n\n`box1` 里面左边的文字和右边盒子的下方对齐，`box2` 中左边的文字和右边盒子的上方对齐。一开始觉得特别奇怪，后面想起了在张鑫旭大大的[CSS世界](https://book.douban.com/subject/27615777/)里面有提到\n\n> 一个 inline-block 元素，如果里面没有内联元素，或者 overflow 不是 visible，则该元素的基线就是其 margin 底边缘；否则其基线就是元素里面最后一行内联元素的基线。\n\n虽然这本书非常的好，但是还是想着规范里面有没有对这种情况的说明呢？搜了一下谷歌，[确实有](https://www.w3.org/TR/CSS21/visudet.html#inlineblock-width)\n\n> The baseline of an 'inline-block' is the baseline of its last line box in the normal flow, unless it has either no in-flow line boxes or if its 'overflow' property has a computed value other than 'visible', in which case the baseline is the bottom margin edge.\n\n为了验证确实是与 margin 的底边缘对齐，设置一个大一点的 margin\n\n```html\n&lt;style>\n    .content {\n        display: inline-block;\n        width: 100px;\n        height: 30px;\n        border: 1px solid black;\n        margin-bottom: 20px;\n    }\n&lt;/style>\n\n&lt;div class=\"box\">\n    &lt;span>xxx&lt;/span>\n    &lt;div class=\"content\">\n    &lt;/div>\n&lt;/div>\n```\n\n`overflow` 的值不为 `visible` 的情况\n\n```html\n&lt;style>\n    .content {\n        display: inline-block;\n        width: 100px;\n        height: 30px;\n        border: 1px solid black;\n        margin-bottom: 20px;\n        overflow: hidden;\n    }\n&lt;/style>\n\n&lt;div class=\"box\">\n    &lt;span>xxx&lt;/span>\n    &lt;div class=\"content\">\n    xxx\n    &lt;/div>\n&lt;/div>\n```\n\n这里还能引出一个比较常见的问题，就是图片和文字放一起会出现底边距的情况\n\n```html\n&lt;style>\n    .container {\n        border: 1px solid black;\n    }\n&lt;/style>\n\n&lt;div class=\"container\">\n    &lt;img src=\"https://developer.cdn.mozilla.net/media/img/mdn-logo-sm.png\">\n&lt;/div>\n```\n\n可以看到图片的底部有边距，这是因为图片默认是 `inline-block` 的元素，这时候图片的 margin 底边距会与 [strut](https://www.w3.org/TR/CSS21/visudet.html#strut) 产生对齐。这里的 `strut` 相当于前面的 `xxx` 内联元素，是浏览器自动产生的。\n\n知道了 `inline-block` 元素的基线位置之后，自然会想到那 `block` 元素的基线呢？这里讨论基线主要是为了知道如何与同一行元素进行垂直对齐，而 `block` 元素默认就是占据一整行，所以也就不存在垂直对齐的情况。\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

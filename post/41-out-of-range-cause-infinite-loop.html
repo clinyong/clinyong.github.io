@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        数组越界引起的无限循环 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">数组越界引起的无限循环</div><div class="sc-jzJRlG fCjyQ"><p>有下面这样一段 C 语言代码</p>
+<pre><code class="c language-c">int main(int argc, char* argv[]){
+    int i = 0;
+    int arr[3] = {0};
+    for(; i&lt;=3; i++){
+        arr[i] = 0;
+        printf("hello world\n");
+    }
+    return 0;
+}
+</code></pre>
+<p>因为数组越界，所以会导致一直打印 <code>hello world</code>。我们可以在终端实际运行一下。</p>
+<pre><code>$ gcc -fno-stack-protector main.c -o main
+$ ./main
+hello world
+hello world
+hello world
+hello world
+...
+</code></pre>
+<p>因为现代编译器都有溢出保护机制，所以需要加上 <code>-fno-stack-protector</code>。这里是因为 <code>arr[3]</code> 越界了，而且刚好指向变量 <code>i</code>。我们可以把各个变量的内存地址打印出来，验证一下，修改上面的代码。</p>
+<pre><code class="c language-c">int main(int argc, char* argv[]){
+    int i = 0;
+    int arr[3] = {0};
+    printf("i: %u\n",&amp;i);
+    for(; i&lt;=2; i++){
+        printf("arr[%d]: %u\n", i, &amp;arr[i]);
+        arr[i] = 0;
+    }
+    return 0;
+}
+</code></pre>
+<p>重新编译一下。</p>
+<pre><code>$ gcc -fno-stack-protector main.c -o main
+$ ./main
+i: 3846382636
+arr[0]: 3846382624
+arr[1]: 3846382628
+arr[2]: 3846382632
+</code></pre>
+<p>可以看到 <code>arr[2]</code> 的地址加上 4 就是 <code>i</code> 的地址，所以 <code>arr[3]</code> 实际指向的就是 <code>i</code>。到这里为止，一开始那段无限循环的原因也算找到了。</p>
+<p>当然我们还可以多尝试几种情况，比如更换下数组和变量 <code>i</code> 的声明顺序。</p>
+<pre><code class="c language-c">int arr[3] = {0};
+int i = 0;
+</code></pre>
+<p>然后再次打印内存地址。</p>
+<pre><code>i: 3824608288
+arr[0]: 3824608292
+arr[1]: 3824608296
+arr[2]: 3824608300
+</code></pre>
+<p>可以看到即使数组越界，也不会造成无限循环。除了声明顺序外，因为 64 位操作系统会进行 8 字节对齐，所以我们给数组增加多一个元素，让其长度为 4。</p>
+<pre><code class="c language-c">int i = 0;
+int arr[4] = {0};
+</code></pre>
+<p>再看下内存地址。</p>
+<pre><code>i: 3987985452
+arr[0]: 3987985424
+arr[1]: 3987985428
+arr[2]: 3987985432
+arr[3]: 3987985436
+</code></pre>
+<p>可以看到变量 i 的地址不会紧跟着数组，所以同样不会无限循环。</p>
+<p>（完）</p></div><div class="sc-jTzLTM frgWBf">2018.12.01</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"数组越界引起的无限循环","date":"2018.12.01"},"content":"\n有下面这样一段 C 语言代码\n\n```c\nint main(int argc, char* argv[]){\n    int i = 0;\n    int arr[3] = {0};\n    for(; i&lt;=3; i++){\n        arr[i] = 0;\n        printf(\"hello world\\n\");\n    }\n    return 0;\n}\n```\n\n因为数组越界，所以会导致一直打印 `hello world`。我们可以在终端实际运行一下。\n\n```\n$ gcc -fno-stack-protector main.c -o main\n$ ./main\nhello world\nhello world\nhello world\nhello world\n...\n```\n\n因为现代编译器都有溢出保护机制，所以需要加上 `-fno-stack-protector`。这里是因为 `arr[3]` 越界了，而且刚好指向变量 `i`。我们可以把各个变量的内存地址打印出来，验证一下，修改上面的代码。\n\n```c\nint main(int argc, char* argv[]){\n    int i = 0;\n    int arr[3] = {0};\n    printf(\"i: %u\\n\",&i);\n    for(; i&lt;=2; i++){\n        printf(\"arr[%d]: %u\\n\", i, &arr[i]);\n        arr[i] = 0;\n    }\n    return 0;\n}\n```\n\n重新编译一下。\n\n```\n$ gcc -fno-stack-protector main.c -o main\n$ ./main\ni: 3846382636\narr[0]: 3846382624\narr[1]: 3846382628\narr[2]: 3846382632\n```\n\n可以看到 `arr[2]` 的地址加上 4 就是 `i` 的地址，所以 `arr[3]` 实际指向的就是 `i`。到这里为止，一开始那段无限循环的原因也算找到了。\n\n当然我们还可以多尝试几种情况，比如更换下数组和变量 `i` 的声明顺序。\n\n```c\nint arr[3] = {0};\nint i = 0;\n```\n\n然后再次打印内存地址。\n\n```\ni: 3824608288\narr[0]: 3824608292\narr[1]: 3824608296\narr[2]: 3824608300\n```\n\n可以看到即使数组越界，也不会造成无限循环。除了声明顺序外，因为 64 位操作系统会进行 8 字节对齐，所以我们给数组增加多一个元素，让其长度为 4。\n\n```c\nint i = 0;\nint arr[4] = {0};\n```\n\n再看下内存地址。\n\n```\ni: 3987985452\narr[0]: 3987985424\narr[1]: 3987985428\narr[2]: 3987985432\narr[3]: 3987985436\n```\n\n可以看到变量 i 的地址不会紧跟着数组，所以同样不会无限循环。\n\n（完）\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

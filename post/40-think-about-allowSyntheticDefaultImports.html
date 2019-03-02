@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        由 allowSyntheticDefaultImports 引起的思考 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">由 allowSyntheticDefaultImports 引起的思考</div><div class="sc-jzJRlG fCjyQ"><p>这段时间团队开始在使用 TypeScript，有些童鞋会像下面这样写</p>
+<pre><code class="ts language-ts">import React from "react";
+
+console.log(React);
+</code></pre>
+<p>因为 <code>react</code> 是以 commonJS 的形式导出的，所以上面的代码会报错</p>
+<pre><code>Module '"react"' has no default export.
+</code></pre>
+<p>提示 <code>react</code> 并没有 <code>default</code> 字段导出。这个问题解决也很简单，换成下面这种形式的写法就可以了。</p>
+<pre><code class="ts language-ts">import * as React from "react";
+</code></pre>
+<p>当时和同事在讨论，说 babel 允许第一种写法，因为帮你做了兼容。而 TS 是不能这样写的。后面仔细看了文档，发现自己的观点是不对的。</p>
+<p>TS 是允许你这么写的，但是需要在 <code>tsconfig.json</code> 中配置两个字段</p>
+<pre><code class="json language-json">{
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+}
+</code></pre>
+<p>先说下 <code>allowSyntheticDefaultImports</code>，这个字段实际只起到检查的作用，不会对编译后的代码有任何影响。</p>
+<p>而 <code>esModuleInterop</code> 就不一样，实际上开启这个字段的时候，默认也是会开启 <code>allowSyntheticDefaultImports</code>，并且对于编译后的代码也做了兼容。还要注意的是这个字段只有当把代码编译成 commonJS 的时候才会起作用。</p>
+<p>所以对于第一种写法，如果配置是下面这样</p>
+<pre><code class="json language-json">{
+    "module": "commonjs",
+    "esModuleInterop": true
+}
+</code></pre>
+<p>编译之后的代码为</p>
+<pre><code class="js language-js">var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
+    return (mod &amp;&amp; mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(require("react"));
+console.log(react_1.default);
+</code></pre>
+<p>可以看到加了很多兼容性的代码，如果配置换成下面这样</p>
+<pre><code class="json language-json">{
+    "module": "es2015",
+     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+}
+</code></pre>
+<p>因为导出模块是 <code>es2015</code>，实际会忽略 <code>esModuleInterop</code> 字段，所以要加上 <code>allowSyntheticDefaultImports</code> 防止报错，输出的代码为</p>
+<pre><code class="js language-js">import React from "react";
+console.log(React);
+</code></pre>
+<p>可以看到和源代码一模一样。实际上 babel 的行为也是这样的，只有当导出 commonjs 的时候，才会加上兼容性的代码，如果是 ES6 的格式则原样输出。</p>
+<p>因为 webpack 的 tree shaking，所以一般我们都会让 babel 或者 TS 把模块导出成 ES6。而 npm 上面绝大部分的包都是 commonjs 形式的，那是谁做了这个兼容呢。答案也很明显，就是 webpack。</p>
+<p>只要是 webpack 能识别的模块格式，不管是 commonjs，ES6 还是 amd，webpack 都能让它们正常地相互引用。</p>
+<p>（完）</p></div><div class="sc-jTzLTM frgWBf">2018.12.01</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"由 allowSyntheticDefaultImports 引起的思考","date":"2018.12.01"},"content":"\n这段时间团队开始在使用 TypeScript，有些童鞋会像下面这样写\n\n```ts\nimport React from \"react\";\n\nconsole.log(React);\n```\n\n因为 `react` 是以 commonJS 的形式导出的，所以上面的代码会报错\n\n```\nModule '\"react\"' has no default export.\n```\n\n提示 `react` 并没有 `default` 字段导出。这个问题解决也很简单，换成下面这种形式的写法就可以了。\n\n```ts\nimport * as React from \"react\";\n```\n\n当时和同事在讨论，说 babel 允许第一种写法，因为帮你做了兼容。而 TS 是不能这样写的。后面仔细看了文档，发现自己的观点是不对的。\n\nTS 是允许你这么写的，但是需要在 `tsconfig.json` 中配置两个字段\n\n```json\n{\n    \"allowSyntheticDefaultImports\": true,\n    \"esModuleInterop\": true\n}\n```\n\n先说下 `allowSyntheticDefaultImports`，这个字段实际只起到检查的作用，不会对编译后的代码有任何影响。\n\n而 `esModuleInterop` 就不一样，实际上开启这个字段的时候，默认也是会开启 `allowSyntheticDefaultImports`，并且对于编译后的代码也做了兼容。还要注意的是这个字段只有当把代码编译成 commonJS 的时候才会起作用。\n\n所以对于第一种写法，如果配置是下面这样\n\n```json\n{\n    \"module\": \"commonjs\",\n    \"esModuleInterop\": true\n}\n```\n\n编译之后的代码为\n\n```js\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar react_1 = __importDefault(require(\"react\"));\nconsole.log(react_1.default);\n```\n\n可以看到加了很多兼容性的代码，如果配置换成下面这样\n\n```json\n{\n    \"module\": \"es2015\",\n     \"allowSyntheticDefaultImports\": true,\n    \"esModuleInterop\": true\n}\n```\n\n因为导出模块是 `es2015`，实际会忽略 `esModuleInterop` 字段，所以要加上 `allowSyntheticDefaultImports` 防止报错，输出的代码为\n\n```js\nimport React from \"react\";\nconsole.log(React);\n```\n\n可以看到和源代码一模一样。实际上 babel 的行为也是这样的，只有当导出 commonjs 的时候，才会加上兼容性的代码，如果是 ES6 的格式则原样输出。\n\n因为 webpack 的 tree shaking，所以一般我们都会让 babel 或者 TS 把模块导出成 ES6。而 npm 上面绝大部分的包都是 commonjs 形式的，那是谁做了这个兼容呢。答案也很明显，就是 webpack。\n\n只要是 webpack 能识别的模块格式，不管是 commonjs，ES6 还是 amd，webpack 都能让它们正常地相互引用。\n\n（完）\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

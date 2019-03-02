@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        阅读 React 源码之 setState | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">阅读 React 源码之 setState</div><div class="sc-jzJRlG fCjyQ"><p>这篇文章介绍一下，当运行了 <code>setState</code> 之后，具体发生了什么事情。<code>setState</code> 的具体代码在 <a href="https://github.com/facebook/react/blob/v15.4.2/src/isomorphic/modern/class/ReactComponent.js">ReactComponent.js</a> 中</p>
+<pre><code class="js language-js">ReactComponent.prototype.setState = function(partialState, callback) {
+  this.updater.enqueueSetState(this, partialState);
+  if (callback) {
+    this.updater.enqueueCallback(this, callback, 'setState');
+  }
+};
+</code></pre>
+<p>这里的 <code>updater</code> 是哪里来的，在源文件中，有下面这样一句</p>
+<pre><code class="js language-js">// We initialize the default updater but the real one gets injected by the renderer.
+this.updater = updater || ReactNoopUpdateQueue;
+</code></pre>
+<p>官方的注释写着真正的 <code>updater</code> 不是在这里初始化的。全局搜索了一圈。发现在 <a href="https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js">ReactCompositeComponent.js</a> 中有下面这样一段</p>
+<pre><code class="js language-js">inst.props = publicProps;
+inst.context = publicContext;
+inst.refs = emptyObject;
+inst.updater = updateQueue;
+</code></pre>
+<p>可以看到 <code>updater</code> 是在这时候才真正初始化。 <code>updateQueue</code> 来自</p>
+<pre><code class="js language-js">var updateQueue = transaction.getUpdateQueue();
+</code></pre>
+<p>而这里的 transaction 来自 <a href="https://github.com/facebook/react/blob/v15.4.2/src/renderers/dom/client/ReactMount.js">ReactMount.js</a> 中的 <code>ReactReconcileTransaction</code></p>
+<pre><code class="js language-js">function batchedMountComponentIntoNode(componentInstance, container, shouldReuseMarkup, context) {
+  var transaction = ReactUpdates.ReactReconcileTransaction.getPooled(
+  !shouldReuseMarkup &amp;&amp; ReactDOMFeatureFlags.useCreateElement);
+  transaction.perform(mountComponentIntoNode, null, componentInstance, container, transaction, shouldReuseMarkup, context);
+  ReactUpdates.ReactReconcileTransaction.release(transaction);
+}
+</code></pre>
+<p>在 <a href="https://github.com/facebook/react/blob/v15.4.2/src/renderers/dom/client/ReactReconcileTransaction.js">ReactReconcileTransaction.js</a> 中能看到 <code>getUpdateQueue</code> ，所以这里的 <code>updater</code> 就是 <code>ReactUpdateQueue</code>。费了这样一大圈才算找到了 <code>updater</code>，真是不知道为什么要这样写。。。</p>
+<p>接着看看一开始的 <code>enqueueSetState</code> ，在 <a href="https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactUpdateQueue.js">ReactUpdateQueue.js</a> 中</p>
+<pre><code class="js language-js">enqueueSetState: function (publicInstance, partialState) {
+  var internalInstance = getInternalInstanceReadyForUpdate(publicInstance, 'setState');
+  if (!internalInstance) {
+    return;
+  }
+
+  var queue = internalInstance._pendingStateQueue || (internalInstance._pendingStateQueue = []);
+  queue.push(partialState);
+
+  enqueueUpdate(internalInstance);
+},
+</code></pre>
+<p>每个 react component 都有一个内部实例 <code>internalInstance</code>，<code>enqueueUpdate</code> 会把要更新的 state 加到 <code>_pendingStateQueue</code> 数组里面。看下最后一句，调用了 <a href="https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactUpdates.js">ReactUpdates.js</a> 中的</p>
+<pre><code class="js language-js">function enqueueUpdate(component) {
+  dirtyComponents.push(component);
+  if (component._updateBatchNumber == null) {
+    component._updateBatchNumber = updateBatchNumber + 1;
+  }
+}
+</code></pre>
+<p>把这个需要更新的组件加到 <code>dirtyComponents</code> 里面。所以<code>setState</code> 其实就做了两件事</p>
+<ul>
+<li>把 state 加到组件的 _pendingStateQueue</li>
+<li>把这个组件加到 dirtyComponents</li>
+</ul>
+<p>这里也可以知道 <code>setState</code> 是异步的，每次 <code>setState</code> 只是先保存下状态，不会立即更新界面。</p>
+<p>那究竟是什么时候才更新界面呢？我们继续往下看。事实上，整个 <code>setState</code> 是包含在 <code>ReactDefaultBatchingStrategy</code> 当中，这个事务有一个 <code>FLUSH_BATCHED_UPDATES</code> 的 wrapper 用来在最后面更新 state。在 <a href="https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactUpdates.js">ReactUpdates.js</a> 中的</p>
+<pre><code class="js language-js">var flushBatchedUpdates = function() {
+  while (dirtyComponents.length) {
+    var transaction = ReactUpdatesFlushTransaction.getPooled();
+    transaction.perform(runBatchedUpdates, null, transaction);
+    ReactUpdatesFlushTransaction.release(transaction);
+  }
+};
+</code></pre>
+<p>上面的代码就是找出 <code>dirtyComponents</code> ，执行 <code>runBatchedUpdates</code></p>
+<pre><code class="js language-js">function runBatchedUpdates() {
+    // ...
+
+    ReactReconciler.performUpdateIfNecessary(
+        component,
+        transaction.reconcileTransaction,
+        updateBatchNumber
+    );
+
+    // ...
+}
+</code></pre>
+<p>主要来看下其中的 <code>performUpdateIfNecessary</code>，在 <a href="https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactReconciler.js">ReactReconciler.js</a></p>
+<pre><code class="js language-js">function performUpdateIfNecessary() {
+    // ...
+
+    internalInstance.performUpdateIfNecessary(transaction);
+
+    // ...
+}
+</code></pre>
+<p>react 的源码特别绕，去除了一大堆 Debug 代码之后，其实是执行内部实例的 <code>performUpdateIfNecessary</code>，<a href="https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js">ReactCompositeComponent.js</a></p>
+<pre><code class="js language-js">function performUpdateIfNecessary() {
+    if (this._pendingElement != null) {
+        ReactReconciler.receiveComponent(
+            this,
+            this._pendingElement,
+            transaction,
+            this._context
+        );
+    } else if (this._pendingStateQueue !== null || this._pendingForceUpdate) {
+        this.updateComponent(
+            transaction,
+            this._currentElement,
+            this._currentElement,
+            this._context,
+            this._context
+        );
+    } else {
+        this._updateBatchNumber = null;
+    }
+}
+</code></pre>
+<p>在这里会执行 <code>updateComponent</code> 这个方法</p>
+<pre><code class="js language-js">function updateComponent(params) {
+    // ...
+
+    // use Object.assign to update state
+    var nextState = this._processPendingState(nextProps, nextContext);
+    var shouldUpdate = true;
+
+    if (!this._pendingForceUpdate) {
+        if (inst.shouldComponentUpdate) {
+            shouldUpdate = inst.shouldComponentUpdate(
+                nextProps,
+                nextState,
+                nextContext
+            );
+        } else {
+            if (this._compositeType === CompositeTypes.PureClass) {
+                shouldUpdate =
+                    !shallowEqual(prevProps, nextProps) ||
+                    !shallowEqual(inst.state, nextState);
+            }
+        }
+    }
+
+    if (shouldUpdate) {
+        this._pendingForceUpdate = false;
+        this._performComponentUpdate(
+            nextParentElement,
+            nextProps,
+            nextState,
+            nextContext,
+            transaction,
+            nextUnmaskedContext
+        );
+    } else {
+        // ...
+    }
+}
+</code></pre>
+<p>这个方法比较复杂，还包含了一些 <code>props</code> 和 <code>context</code> 的判断，已经被省略了。这里通过 <code>_processPendingState</code> 来更新 state，这个方法内部比较简单，主要是用了 <code>Object.assign</code>。</p>
+<p>还要继续判断 <code>shouldUpdate</code> ，如果组件有 <code>shouldComponentUpdate</code> 则运行，没有的话还要判断是不是 <code>PureComponent</code>。如果经过这个检查之后，<code>shouldUpdate</code> 还是为 true 的话，就执行 <code>_performComponentUpdate</code></p>
+<pre><code class="js language-js">function _performComponentUpdate(
+    nextElement,
+    nextProps,
+    nextState,
+    nextContext,
+    transaction,
+    unmaskedContext
+) {
+    var inst = this._instance;
+
+    var hasComponentDidUpdate = Boolean(inst.componentDidUpdate);
+    var prevProps;
+    var prevState;
+    var prevContext;
+    if (hasComponentDidUpdate) {
+        // save pre status
+        prevProps = inst.props;
+        prevState = inst.state;
+        prevContext = inst.context;
+    }
+
+    if (inst.componentWillUpdate) {
+        // ...
+    }
+
+    this._currentElement = nextElement;
+    this._context = unmaskedContext;
+    inst.props = nextProps;
+    inst.state = nextState;
+    inst.context = nextContext;
+
+    this._updateRenderedComponent(transaction, unmaskedContext);
+
+    if (inst.componentDidUpdate) {
+        // ....
+    }
+}
+</code></pre>
+<p>这里判断两个生命周期函数，<code>componentWillUpdate</code> 和 <code>componentDidUpdate</code>。然后把下一个状态的 state，props 和 context 更新到实例上。执行 <code>_updateRenderedComponent</code></p>
+<pre><code class="js language-js">function _updateRenderedComponent(transaction, context) {
+    var prevComponentInstance = this._renderedComponent;
+    var prevRenderedElement = prevComponentInstance._currentElement;
+    // only call inst.render, no magic
+    var nextRenderedElement = this._renderValidatedComponent();
+
+    if (shouldUpdateReactComponent(prevRenderedElement, nextRenderedElement)) {
+        ReactReconciler.receiveComponent(
+            prevComponentInstance,
+            nextRenderedElement,
+            transaction,
+            this._processChildContext(context)
+        );
+    } else {
+        // ...
+    }
+}
+</code></pre>
+<p>上面的 <code>_renderValidatedComponent</code> 调用了组件的 <code>render</code> 方法，把新生成的元素和之前的比较，如果需要更新，则调用 <code>ReactReconciler.receiveComponent</code> 。先来看看 <code>shouldUpdateReactComponent</code></p>
+<pre><code class="js language-js">function shouldUpdateReactComponent(prevElement, nextElement) {
+    var prevEmpty = prevElement === null || prevElement === false;
+    var nextEmpty = nextElement === null || nextElement === false;
+    if (prevEmpty || nextEmpty) {
+        return prevEmpty === nextEmpty;
+    }
+
+    var prevType = typeof prevElement;
+    var nextType = typeof nextElement;
+    if (prevType === "string" || prevType === "number") {
+        return nextType === "string" || nextType === "number";
+    } else {
+        return (
+            nextType === "object" &amp;&amp;
+            prevElement.type === nextElement.type &amp;&amp;
+            prevElement.key === nextElement.key
+        );
+    }
+}
+</code></pre>
+<p>上面就是源码里面完整的代码，可以看出非常简单。更新部分的代码 <code>ReactReconciler.receiveComponent</code> 调用了 <a href="https://github.com/facebook/react/blob/v15.4.2/src/renderers/dom/shared/ReactDOMComponent.js">ReactDOMComponent.js</a> 里面的 <code>updateComponent</code></p>
+<pre><code class="js language-js">function updateComponent(transaction, prevElement, nextElement, context) {
+    // ...
+
+    this._updateDOMProperties(lastProps, nextProps, transaction);
+    this._updateDOMChildren(lastProps, nextProps, transaction, context);
+
+    // ...
+}
+</code></pre>
+<p><code>_updateDOMProperties</code> 是更新 DOM 节点上的属性，<code>_updateDOMChildren</code> 是更新内容。当运行完 <code>_updateDOMChildren</code> 之后，就会发现界面已经发生了改变。因为这整一个过程都在事务当中，而且还是嵌套事务，所以最后面就需要执行所有 wrapper 的 <code>close</code> 方法。</p>
+<p>整个 <code>setState</code> 的过程大致就是这样，跳过了很多细节的代码，也没有涉及到 DOM Diff 算法。这部分应该可以重新写篇文章。</p></div><div class="sc-jTzLTM frgWBf">2017.08.20</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"阅读 React 源码之 setState","date":"2017.08.20"},"content":"\n这篇文章介绍一下，当运行了 `setState` 之后，具体发生了什么事情。`setState` 的具体代码在 [ReactComponent.js](https://github.com/facebook/react/blob/v15.4.2/src/isomorphic/modern/class/ReactComponent.js) 中\n\n```js\nReactComponent.prototype.setState = function(partialState, callback) {\n  this.updater.enqueueSetState(this, partialState);\n  if (callback) {\n    this.updater.enqueueCallback(this, callback, 'setState');\n  }\n};\n```\n\n这里的 `updater` 是哪里来的，在源文件中，有下面这样一句\n\n```js\n// We initialize the default updater but the real one gets injected by the renderer.\nthis.updater = updater || ReactNoopUpdateQueue;\n```\n\n官方的注释写着真正的 `updater` 不是在这里初始化的。全局搜索了一圈。发现在 [ReactCompositeComponent.js](https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js) 中有下面这样一段\n\n```js\ninst.props = publicProps;\ninst.context = publicContext;\ninst.refs = emptyObject;\ninst.updater = updateQueue;\n```\n\n可以看到 `updater` 是在这时候才真正初始化。 `updateQueue` 来自\n\n```js\nvar updateQueue = transaction.getUpdateQueue();\n```\n\n而这里的 transaction 来自 [ReactMount.js](https://github.com/facebook/react/blob/v15.4.2/src/renderers/dom/client/ReactMount.js) 中的 `ReactReconcileTransaction`\n\n```js\nfunction batchedMountComponentIntoNode(componentInstance, container, shouldReuseMarkup, context) {\n  var transaction = ReactUpdates.ReactReconcileTransaction.getPooled(\n  !shouldReuseMarkup && ReactDOMFeatureFlags.useCreateElement);\n  transaction.perform(mountComponentIntoNode, null, componentInstance, container, transaction, shouldReuseMarkup, context);\n  ReactUpdates.ReactReconcileTransaction.release(transaction);\n}\n```\n\n在 [ReactReconcileTransaction.js](https://github.com/facebook/react/blob/v15.4.2/src/renderers/dom/client/ReactReconcileTransaction.js) 中能看到 `getUpdateQueue` ，所以这里的 `updater` 就是 `ReactUpdateQueue`。费了这样一大圈才算找到了 `updater`，真是不知道为什么要这样写。。。\n\n接着看看一开始的 `enqueueSetState` ，在 [ReactUpdateQueue.js](https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactUpdateQueue.js) 中\n\n```js\nenqueueSetState: function (publicInstance, partialState) {\n  var internalInstance = getInternalInstanceReadyForUpdate(publicInstance, 'setState');\n  if (!internalInstance) {\n    return;\n  }\n\n  var queue = internalInstance._pendingStateQueue || (internalInstance._pendingStateQueue = []);\n  queue.push(partialState);\n\n  enqueueUpdate(internalInstance);\n},\n```\n\n每个 react component 都有一个内部实例 `internalInstance`，`enqueueUpdate` 会把要更新的 state 加到 `_pendingStateQueue` 数组里面。看下最后一句，调用了 [ReactUpdates.js](https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactUpdates.js) 中的\n\n```js\nfunction enqueueUpdate(component) {\n  dirtyComponents.push(component);\n  if (component._updateBatchNumber == null) {\n    component._updateBatchNumber = updateBatchNumber + 1;\n  }\n}\n```\n\n把这个需要更新的组件加到 `dirtyComponents` 里面。所以`setState` 其实就做了两件事\n\n- 把 state 加到组件的 _pendingStateQueue\n- 把这个组件加到 dirtyComponents\n\n这里也可以知道 `setState` 是异步的，每次 `setState` 只是先保存下状态，不会立即更新界面。\n\n那究竟是什么时候才更新界面呢？我们继续往下看。事实上，整个 `setState` 是包含在 `ReactDefaultBatchingStrategy` 当中，这个事务有一个 `FLUSH_BATCHED_UPDATES` 的 wrapper 用来在最后面更新 state。在 [ReactUpdates.js](https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactUpdates.js) 中的\n\n```js\nvar flushBatchedUpdates = function() {\n  while (dirtyComponents.length) {\n    var transaction = ReactUpdatesFlushTransaction.getPooled();\n    transaction.perform(runBatchedUpdates, null, transaction);\n    ReactUpdatesFlushTransaction.release(transaction);\n  }\n};\n```\n\n上面的代码就是找出 `dirtyComponents` ，执行 `runBatchedUpdates`\n\n```js\nfunction runBatchedUpdates() {\n\t// ...\n\n\tReactReconciler.performUpdateIfNecessary(\n\t\tcomponent,\n\t\ttransaction.reconcileTransaction,\n\t\tupdateBatchNumber\n\t);\n\n\t// ...\n}\n```\n\n主要来看下其中的 `performUpdateIfNecessary`，在 [ReactReconciler.js](https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactReconciler.js)\n\n```js\nfunction performUpdateIfNecessary() {\n\t// ...\n\n\tinternalInstance.performUpdateIfNecessary(transaction);\n\n\t// ...\n}\n```\n\nreact 的源码特别绕，去除了一大堆 Debug 代码之后，其实是执行内部实例的 `performUpdateIfNecessary`，[ReactCompositeComponent.js](https://github.com/facebook/react/blob/v15.4.2/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js)\n\n```js\nfunction performUpdateIfNecessary() {\n\tif (this._pendingElement != null) {\n\t\tReactReconciler.receiveComponent(\n\t\t\tthis,\n\t\t\tthis._pendingElement,\n\t\t\ttransaction,\n\t\t\tthis._context\n\t\t);\n\t} else if (this._pendingStateQueue !== null || this._pendingForceUpdate) {\n\t\tthis.updateComponent(\n\t\t\ttransaction,\n\t\t\tthis._currentElement,\n\t\t\tthis._currentElement,\n\t\t\tthis._context,\n\t\t\tthis._context\n\t\t);\n\t} else {\n\t\tthis._updateBatchNumber = null;\n\t}\n}\n```\n\n在这里会执行 `updateComponent` 这个方法\n\n```js\nfunction updateComponent(params) {\n\t// ...\n\n\t// use Object.assign to update state\n\tvar nextState = this._processPendingState(nextProps, nextContext);\n\tvar shouldUpdate = true;\n\n\tif (!this._pendingForceUpdate) {\n\t\tif (inst.shouldComponentUpdate) {\n\t\t\tshouldUpdate = inst.shouldComponentUpdate(\n\t\t\t\tnextProps,\n\t\t\t\tnextState,\n\t\t\t\tnextContext\n\t\t\t);\n\t\t} else {\n\t\t\tif (this._compositeType === CompositeTypes.PureClass) {\n\t\t\t\tshouldUpdate =\n\t\t\t\t\t!shallowEqual(prevProps, nextProps) ||\n\t\t\t\t\t!shallowEqual(inst.state, nextState);\n\t\t\t}\n\t\t}\n\t}\n\n\tif (shouldUpdate) {\n\t\tthis._pendingForceUpdate = false;\n\t\tthis._performComponentUpdate(\n\t\t\tnextParentElement,\n\t\t\tnextProps,\n\t\t\tnextState,\n\t\t\tnextContext,\n\t\t\ttransaction,\n\t\t\tnextUnmaskedContext\n\t\t);\n\t} else {\n\t\t// ...\n\t}\n}\n```\n\n这个方法比较复杂，还包含了一些 `props` 和 `context` 的判断，已经被省略了。这里通过 `_processPendingState` 来更新 state，这个方法内部比较简单，主要是用了 `Object.assign`。\n\n还要继续判断 `shouldUpdate` ，如果组件有 `shouldComponentUpdate` 则运行，没有的话还要判断是不是 `PureComponent`。如果经过这个检查之后，`shouldUpdate` 还是为 true 的话，就执行 `_performComponentUpdate`\n\n```js\nfunction _performComponentUpdate(\n\tnextElement,\n\tnextProps,\n\tnextState,\n\tnextContext,\n\ttransaction,\n\tunmaskedContext\n) {\n\tvar inst = this._instance;\n\n\tvar hasComponentDidUpdate = Boolean(inst.componentDidUpdate);\n\tvar prevProps;\n\tvar prevState;\n\tvar prevContext;\n\tif (hasComponentDidUpdate) {\n\t\t// save pre status\n\t\tprevProps = inst.props;\n\t\tprevState = inst.state;\n\t\tprevContext = inst.context;\n\t}\n\n\tif (inst.componentWillUpdate) {\n\t\t// ...\n\t}\n\n\tthis._currentElement = nextElement;\n\tthis._context = unmaskedContext;\n\tinst.props = nextProps;\n\tinst.state = nextState;\n\tinst.context = nextContext;\n\n\tthis._updateRenderedComponent(transaction, unmaskedContext);\n\n\tif (inst.componentDidUpdate) {\n\t\t// ....\n\t}\n}\n```\n\n这里判断两个生命周期函数，`componentWillUpdate` 和 `componentDidUpdate`。然后把下一个状态的 state，props 和 context 更新到实例上。执行 `_updateRenderedComponent`\n\n```js\nfunction _updateRenderedComponent(transaction, context) {\n\tvar prevComponentInstance = this._renderedComponent;\n\tvar prevRenderedElement = prevComponentInstance._currentElement;\n\t// only call inst.render, no magic\n\tvar nextRenderedElement = this._renderValidatedComponent();\n\n\tif (shouldUpdateReactComponent(prevRenderedElement, nextRenderedElement)) {\n\t\tReactReconciler.receiveComponent(\n\t\t\tprevComponentInstance,\n\t\t\tnextRenderedElement,\n\t\t\ttransaction,\n\t\t\tthis._processChildContext(context)\n\t\t);\n\t} else {\n\t\t// ...\n\t}\n}\n```\n\n上面的 `_renderValidatedComponent` 调用了组件的 `render` 方法，把新生成的元素和之前的比较，如果需要更新，则调用 `ReactReconciler.receiveComponent` 。先来看看 `shouldUpdateReactComponent`\n\n```js\nfunction shouldUpdateReactComponent(prevElement, nextElement) {\n\tvar prevEmpty = prevElement === null || prevElement === false;\n\tvar nextEmpty = nextElement === null || nextElement === false;\n\tif (prevEmpty || nextEmpty) {\n\t\treturn prevEmpty === nextEmpty;\n\t}\n\n\tvar prevType = typeof prevElement;\n\tvar nextType = typeof nextElement;\n\tif (prevType === \"string\" || prevType === \"number\") {\n\t\treturn nextType === \"string\" || nextType === \"number\";\n\t} else {\n\t\treturn (\n\t\t\tnextType === \"object\" &&\n\t\t\tprevElement.type === nextElement.type &&\n\t\t\tprevElement.key === nextElement.key\n\t\t);\n\t}\n}\n```\n\n上面就是源码里面完整的代码，可以看出非常简单。更新部分的代码 `ReactReconciler.receiveComponent` 调用了 [ReactDOMComponent.js](https://github.com/facebook/react/blob/v15.4.2/src/renderers/dom/shared/ReactDOMComponent.js) 里面的 `updateComponent`\n\n```js\nfunction updateComponent(transaction, prevElement, nextElement, context) {\n\t// ...\n\n\tthis._updateDOMProperties(lastProps, nextProps, transaction);\n\tthis._updateDOMChildren(lastProps, nextProps, transaction, context);\n\n\t// ...\n}\n```\n\n`_updateDOMProperties` 是更新 DOM 节点上的属性，`_updateDOMChildren` 是更新内容。当运行完 `_updateDOMChildren` 之后，就会发现界面已经发生了改变。因为这整一个过程都在事务当中，而且还是嵌套事务，所以最后面就需要执行所有 wrapper 的 `close` 方法。\n\n整个 `setState` 的过程大致就是这样，跳过了很多细节的代码，也没有涉及到 DOM Diff 算法。这部分应该可以重新写篇文章。\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        日历组件开发笔记 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">日历组件开发笔记</div><div class="sc-jzJRlG fCjyQ"><p>花了不到一天的时间写了一个日历的<a href="https://github.com/clinyong/react-dates">组件</a>，写完之后才发现，实现日历的基本功能要比我想象的简单很多。</p>
+<p><img src="http://ol07x5ssf.bkt.clouddn.com/WechatIMG30374.jpeg" alt="" /></p>
+<p>样式直接用的 antd，这里主要记录下功能实现上面比较麻烦的地方。</p>
+<p>闰年和非闰年</p>
+<pre><code class="ts language-ts">const LEAP_MONTH_DAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const NORMAL_MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+function getMonthDays(year: number, month: number): number {
+  if (year % 4 === 0) {
+    return LEAP_MONTH_DAYS[month];
+  } else {
+    return NORMAL_MONTH_DAYS[month];
+  }
+}
+</code></pre>
+<p>通过两个数组，记录每个月的天数，判断一下年份是不是能被 4 整除，获取对应月份的天数。</p>
+<p>每个月开始的第一天是星期几</p>
+<pre><code class="ts language-ts">function getMonthStartDay(year: number, month: number): number {
+  return new Date(year, month, 1).getDay();
+}
+
+const paddingLen = getMonthStartDay(year, month);
+const displayList: DisplayItem[] = [];
+for (let i = 0; i &lt; paddingLen; i++) {
+    displayList.push({
+    key: "padding" + i,
+    value: "",
+    type: CellItemType.Padding
+    });
+}
+</code></pre>
+<p>知道是星期几之后，把前面的元素用 <code>CellItemType.Padding</code> 类型的空数值填充，起到占位的作用。</p>
+<p>上个月和下个月的切换</p>
+<pre><code class="ts language-ts">nextMonth = () =&gt; {
+    const { date } = this.state;
+
+    const month = date.getMonth();
+    if (month === 11) {
+        date.setFullYear(date.getFullYear() + 1, 0);
+    } else {
+        date.setMonth(month + 1);
+    }
+
+    this.setNewDate(date);
+};
+</code></pre>
+<p>当在切换下个月的时候，如果是最后一个月份，需要把年份 +1。类似的，切换上个月，需要判断是不是第一个月。</p>
+<p>（完）</p></div><div class="sc-jTzLTM frgWBf">2018.07.15</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"日历组件开发笔记","date":"2018.07.15"},"content":"\n花了不到一天的时间写了一个日历的[组件](https://github.com/clinyong/react-dates)，写完之后才发现，实现日历的基本功能要比我想象的简单很多。\n\n![](http://ol07x5ssf.bkt.clouddn.com/WechatIMG30374.jpeg)\n\n样式直接用的 antd，这里主要记录下功能实现上面比较麻烦的地方。\n\n闰年和非闰年\n\n```ts\nconst LEAP_MONTH_DAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];\nconst NORMAL_MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];\n\nfunction getMonthDays(year: number, month: number): number {\n  if (year % 4 === 0) {\n    return LEAP_MONTH_DAYS[month];\n  } else {\n    return NORMAL_MONTH_DAYS[month];\n  }\n}\n```\n\n通过两个数组，记录每个月的天数，判断一下年份是不是能被 4 整除，获取对应月份的天数。\n\n每个月开始的第一天是星期几\n\n```ts\nfunction getMonthStartDay(year: number, month: number): number {\n  return new Date(year, month, 1).getDay();\n}\n\nconst paddingLen = getMonthStartDay(year, month);\nconst displayList: DisplayItem[] = [];\nfor (let i = 0; i &lt; paddingLen; i++) {\n    displayList.push({\n    key: \"padding\" + i,\n    value: \"\",\n    type: CellItemType.Padding\n    });\n}\n```\n\n知道是星期几之后，把前面的元素用 `CellItemType.Padding` 类型的空数值填充，起到占位的作用。\n\n上个月和下个月的切换\n\n```ts\nnextMonth = () =&gt; {\n    const { date } = this.state;\n\n    const month = date.getMonth();\n    if (month === 11) {\n        date.setFullYear(date.getFullYear() + 1, 0);\n    } else {\n        date.setMonth(month + 1);\n    }\n\n    this.setNewDate(date);\n};\n```\n\n当在切换下个月的时候，如果是最后一个月份，需要把年份 +1。类似的，切换上个月，需要判断是不是第一个月。\n\n（完）\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

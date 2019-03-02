@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        避免在 React render 中使用箭头函数和 bind | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">避免在 React render 中使用箭头函数和 bind</div><div class="sc-jzJRlG fCjyQ"><p>在平时写 React 组件的时候，我们会习惯于像下面这样去绑定事件</p>
+<pre><code class="jsx language-jsx">class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            users: [
+                { id: 1, name: 'Cory' }, 
+                { id: 2, name: 'Meg' }, 
+                { id: 3, name: 'Bob' }
+            ]
+        };
+    }
+
+    deleteUser = id =&gt; {
+        this.setState(prevState =&gt; {
+            return { 
+                users: prevState.users.filter( user =&gt; user.id !== id)
+            }
+        })
+    }
+
+    render() {
+        return (
+            &lt;div&gt;
+                &lt;h1&gt;Users&lt;/h1&gt;
+                &lt;ul&gt;
+                    { 
+                        this.state.users.map(user =&gt; {
+                            return (
+                                &lt;li&gt;
+                                    &lt;input 
+                                        type="button" 
+                                        value="Delete" 
+                                        onClick={() =&gt; this.deleteUser(user.id)} 
+                                    /&gt;
+                                    {user.name}
+                                &lt;/li&gt;
+                            )
+                        })
+                    }
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        );
+    }
+}
+</code></pre>
+<p>这里的 <code>onDeleteClick</code> 绑定了一个箭头函数，每次 <code>render</code> 的时候，这个函数都会重新创建。假如这个 <code>users</code> 是个很长的列表，有 1 万多项，每次 <code>render</code> 的时候，这个函数就要被创建 1 万多次。如果这里传递的是一个组件</p>
+<pre><code class="jsx language-jsx">&lt;User
+    name={user.name}
+    id={user.id}
+    onClick={() =&gt; this.deleteUser(user.id)}
+/&gt;
+</code></pre>
+<p>由于传进去的 <code>onDeleteClick</code> 每次 <code>render</code> 都变化，所以组件 <code>User</code> 即使在相同的 <code>id</code> 和 <code>name</code> 的情况下，每次也都会发生改变。当然用 <code>bind</code> 去绑定也存在上面说的这些问题。</p>
+<pre><code class="jsx language-jsx">&lt;li&gt;
+    &lt;input 
+        type="button" 
+        value="Delete" 
+        onClick={this.deleteUser.bind(this, user.id)} 
+    /&gt;
+    {user.name}
+&lt;/li&gt;
+</code></pre>
+<p>那要怎么解决呢？下面这两篇文章提到了两种比较巧妙的解决办法</p>
+<ul>
+<li><a href="https://medium.freecodecamp.org/react-pattern-extract-child-components-to-avoid-binding-e3ad8310725e">React Pattern: Extract Child Components to Avoid Binding</a></li>
+<li><a href="https://medium.com/@mgnrsb/another-way-to-avoid-binding-in-render-in-simple-cases-like-this-where-all-you-need-is-to-remember-68af83da0258">Another way to avoid binding in render</a></li>
+</ul>
+<p>第一种方法，抽象成一个子组件，在子组件里面去传参数</p>
+<pre><code class="jsx language-jsx">class User extends React.Component {
+    onDeleteClick = () =&gt; {
+        this.props.onDelete(this.props.id); // 在这里传入 id
+    };
+
+    render() {
+        return (
+            &lt;li&gt;
+                &lt;input 
+                type="button" 
+                value="Delete" 
+                onClick={this.onDeleteClick} 
+                /&gt;
+                {this.props.name}
+            &lt;/li&gt;
+        );
+    }
+}
+
+class App extends React.Component {
+    // ...
+
+    render() {
+        return (
+            &lt;div&gt;
+                &lt;h1&gt;Users&lt;/h1&gt;
+                &lt;ul&gt;
+                    { 
+                        this.state.users.map(user =&gt; {
+                            return (
+                                &lt;User
+                                    id={user.id}
+                                    name={user.name}
+                                    onDelete={this.deleteUser}
+                                /&gt;
+                            )
+                        })
+                    }
+                &lt;/ul&gt;
+            &lt;/div&gt;            
+        );
+    }
+}
+</code></pre>
+<p>第二种方法，把参数加到 html 元素的属性上面</p>
+<pre><code class="jsx language-jsx">class App extends React.Component {
+    // ...
+
+    deleteUser = e =&gt; {   
+        const id = e.target.value
+        this.setState(prevState =&gt; {      
+            return { 
+                users: prevState.users.filter( user =&gt; user.id !== id)
+            }    
+        })  
+    } 
+
+    render() {
+        return (
+            &lt;div&gt;
+                &lt;h1&gt;Users&lt;/h1&gt;
+                &lt;ul&gt;
+                    { 
+                        this.state.users.map(user =&gt; {
+                            return (
+                                &lt;li&gt;
+                                    &lt;input 
+                                        type="button" 
+                                        value={user.id}
+                                        onClick={this.deleteUser} 
+                                    /&gt;
+                                    {user.name}
+                                &lt;/li&gt;
+                            )
+                        })
+                    }
+                &lt;/ul&gt;
+            &lt;/div&gt;            
+        );
+    }
+}
+</code></pre>
+<p>如果你有用 eslint，也可以启用一条规则来检测，<a href="https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md">No .bind() or Arrow Functions in JSX Props</a>。</p>
+<h3 id="">参考</h3>
+<ul>
+<li><a href="https://medium.freecodecamp.org/why-arrow-functions-and-bind-in-reacts-render-are-problematic-f1c08b060e36">Why Arrow Functions and bind in React’s Render are Problematic</a></li>
+</ul></div><div class="sc-jTzLTM frgWBf">2017.08.28</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"避免在 React render 中使用箭头函数和 bind","date":"2017.08.28"},"content":"\n在平时写 React 组件的时候，我们会习惯于像下面这样去绑定事件\n\n```jsx\nclass App extends React.Component {\n    constructor(props) {\n        super(props);\n        this.state = {\n            users: [\n                { id: 1, name: 'Cory' }, \n                { id: 2, name: 'Meg' }, \n                { id: 3, name: 'Bob' }\n            ]\n        };\n    }\n\n    deleteUser = id =&gt; {\n        this.setState(prevState => {\n            return { \n                users: prevState.users.filter( user => user.id !== id)\n            }\n        })\n    }\n\n    render() {\n        return (\n            &lt;div>\n                &lt;h1>Users&lt;/h1>\n                &lt;ul>\n                    { \n                        this.state.users.map(user => {\n                            return (\n                                &lt;li>\n                                    &lt;input \n                                        type=\"button\" \n                                        value=\"Delete\" \n                                        onClick={() => this.deleteUser(user.id)} \n                                    />\n                                    {user.name}\n                                &lt;/li>\n                            )\n                        })\n                    }\n                &lt;/ul>\n            &lt;/div>\n        );\n    }\n}\n```\n\n这里的 `onDeleteClick` 绑定了一个箭头函数，每次 `render` 的时候，这个函数都会重新创建。假如这个 `users` 是个很长的列表，有 1 万多项，每次 `render` 的时候，这个函数就要被创建 1 万多次。如果这里传递的是一个组件\n\n```jsx\n&lt;User\n    name={user.name}\n    id={user.id}\n    onClick={() => this.deleteUser(user.id)}\n/>\n```\n\n由于传进去的 `onDeleteClick` 每次 `render` 都变化，所以组件 `User` 即使在相同的 `id` 和 `name` 的情况下，每次也都会发生改变。当然用 `bind` 去绑定也存在上面说的这些问题。\n\n```jsx\n&lt;li>\n    &lt;input \n        type=\"button\" \n        value=\"Delete\" \n        onClick={this.deleteUser.bind(this, user.id)} \n    />\n    {user.name}\n&lt;/li>\n```\n\n那要怎么解决呢？下面这两篇文章提到了两种比较巧妙的解决办法\n\n- [React Pattern: Extract Child Components to Avoid Binding](https://medium.freecodecamp.org/react-pattern-extract-child-components-to-avoid-binding-e3ad8310725e)\n- [Another way to avoid binding in render](https://medium.com/@mgnrsb/another-way-to-avoid-binding-in-render-in-simple-cases-like-this-where-all-you-need-is-to-remember-68af83da0258)\n\n第一种方法，抽象成一个子组件，在子组件里面去传参数\n\n```jsx\nclass User extends React.Component {\n    onDeleteClick = () => {\n        this.props.onDelete(this.props.id); // 在这里传入 id\n    };\n\n    render() {\n        return (\n            &lt;li>\n                &lt;input \n                type=\"button\" \n                value=\"Delete\" \n                onClick={this.onDeleteClick} \n                />\n                {this.props.name}\n            &lt;/li>\n        );\n    }\n}\n\nclass App extends React.Component {\n    // ...\n\n    render() {\n        return (\n            &lt;div>\n                &lt;h1>Users&lt;/h1>\n                &lt;ul>\n                    { \n                        this.state.users.map(user => {\n                            return (\n                                &lt;User\n                                    id={user.id}\n                                    name={user.name}\n                                    onDelete={this.deleteUser}\n                                />\n                            )\n                        })\n                    }\n                &lt;/ul>\n            &lt;/div>            \n        );\n    }\n}\n```\n\n第二种方法，把参数加到 html 元素的属性上面\n\n```jsx\nclass App extends React.Component {\n    // ...\n\n    deleteUser = e => {   \n        const id = e.target.value\n        this.setState(prevState => {      \n            return { \n                users: prevState.users.filter( user => user.id !== id)\n            }    \n        })  \n    } \n\n    render() {\n        return (\n            &lt;div>\n                &lt;h1>Users&lt;/h1>\n                &lt;ul>\n                    { \n                        this.state.users.map(user => {\n                            return (\n                                &lt;li>\n                                    &lt;input \n                                        type=\"button\" \n                                        value={user.id}\n                                        onClick={this.deleteUser} \n                                    />\n                                    {user.name}\n                                &lt;/li>\n                            )\n                        })\n                    }\n                &lt;/ul>\n            &lt;/div>            \n        );\n    }\n}\n```\n\n如果你有用 eslint，也可以启用一条规则来检测，[No .bind() or Arrow Functions in JSX Props](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)。\n\n### 参考\n\n- [Why Arrow Functions and bind in React’s Render are Problematic](https://medium.freecodecamp.org/why-arrow-functions-and-bind-in-reacts-render-are-problematic-f1c08b060e36)\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

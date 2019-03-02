@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        JavaScript 中的继承 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">JavaScript 中的继承</div><div class="sc-jzJRlG fCjyQ"><p>用 prototype 实现继承的一点笔记。首先要明白，继承之后会发生什么事情。例如类 B 继承了类 A 之后，</p>
+<ul>
+<li>类 B 能获得类 A 的原型链方法，实例方法和静态方法</li>
+<li>类 B 能覆盖上面的方法，又不会影响到类 A</li>
+<li>类 B 生成出来的实例能用 <code>instanceof</code> 判断来自类 A</li>
+</ul>
+<p>有了方向之后，我们就能写出下面的代码</p>
+<pre><code class="js language-js">function inherit(Parent, childConstructor) {
+  function Child(...args) {
+    // 实例方法继承
+    Parent.apply(this, args);
+    childConstructor.apply(this, args);
+  }
+
+  // 创建一个 Temp 的中间变量，是为了让子类不会影响到父类的原型
+  function Temp() {}
+  Temp.prototype = Parent.prototype;
+
+  // 原型链继承
+  Child.prototype = new Temp();
+  Child.prototype.constructor = childConstructor;
+
+  // 类方法（静态方法）继承
+  Object.keys(Parent).forEach(k =&gt; {
+    Child[k] = Parent[k];
+  });
+
+  return Child;
+}
+</code></pre>
+<p>写个例子测试一下上面的代码</p>
+<pre><code class="js language-js">function Animal(name) {
+    const name = name;
+    this.species = "animal"
+
+    this.getName = function() {
+        return name;
+    }
+}
+
+Animal.prototype.say = function() {
+    return "";
+}
+
+function Cat() {
+    this.species = "cat"
+}
+Cat = inherit(Animal, Cat);
+Cat.prototype.say = function() {
+    return "Miao~";
+}
+
+const c = new Cat("LALA");
+
+console.log(c.species) // cat
+console.log(c.getName()) // LALA
+console.log(c.say()) // Miao~
+console.log(c instanceof Animal) // true
+</code></pre>
+<p>上面的方法不太好的一点是必须在执行了 <code>inherit</code> 之后，才能开始写子类的原型方法和静态方法。在 ES6 中，引入了类的概念，继承也可以通过 <code>extend</code> 去实现。但是一般我们都会用 Babel 或者 TypeScript 去编译成 ES5。所以我们来看下这两个工具是怎样实现继承的。以下面这段代码为例</p>
+<pre><code class="js language-js">class Animal {}
+class Cat extends Animal {}
+</code></pre>
+<p>先看看 Babel 是怎么做的</p>
+<pre><code class="js language-js">"use strict";
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError(
+      "this hasn't been initialised - super() hasn't been called"
+    );
+  }
+  return call &amp;&amp; (typeof call === "object" || typeof call === "function")
+    ? call
+    : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" &amp;&amp; superClass !== null) {
+    throw new TypeError(
+      "Super expression must either be null or a function, not " +
+        typeof superClass
+    );
+  }
+  subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass)
+    Object.setPrototypeOf
+      ? Object.setPrototypeOf(subClass, superClass)
+      : (subClass.__proto__ = superClass);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+var Animal = function Animal() {
+  _classCallCheck(this, Animal);
+};
+
+var Cat = (function(_Animal) {
+  _inherits(Cat, _Animal);
+
+  function Cat() {
+    _classCallCheck(this, Cat);
+
+    return _possibleConstructorReturn(
+      this,
+      (Cat.__proto__ || Object.getPrototypeOf(Cat)).apply(this, arguments)
+    );
+  }
+
+  return Cat;
+})(Animal);
+</code></pre>
+<p>这里的原型继承，<code>Object.create</code> 去实现，根据 MDN 文档的 polyfill，其实就是类似我们自己实现的中间变量 <code>Temp</code>。通过 setPrototypeOf 这段去掉，结果也是正常的。</p>
+<p>看下 TypeScript 的实现</p>
+<pre><code class="js language-js">var __extends = (this &amp;&amp; this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array &amp;&amp; function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Animal = /** @class */ (function () {
+    function Animal() {
+    }
+    return Animal;
+}());
+var Cat = /** @class */ (function (_super) {
+    __extends(Cat, _super);
+    function Cat() {
+        return _super !== null &amp;&amp; _super.apply(this, arguments) || this;
+    }
+    return Cat;
+}(Animal));
+</code></pre>
+<p>这里一个比较有趣的是，通过 <code>({ __proto__: [] } instanceof Array</code> 去判断浏览器是不是支持 <code>__proto__</code>。</p></div><div class="sc-jTzLTM frgWBf">2018.06.10</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"JavaScript 中的继承","date":"2018.06.10"},"content":"\n用 prototype 实现继承的一点笔记。首先要明白，继承之后会发生什么事情。例如类 B 继承了类 A 之后，\n\n- 类 B 能获得类 A 的原型链方法，实例方法和静态方法\n- 类 B 能覆盖上面的方法，又不会影响到类 A\n- 类 B 生成出来的实例能用 `instanceof` 判断来自类 A\n\n有了方向之后，我们就能写出下面的代码\n\n```js\nfunction inherit(Parent, childConstructor) {\n  function Child(...args) {\n    // 实例方法继承\n    Parent.apply(this, args);\n    childConstructor.apply(this, args);\n  }\n\n  // 创建一个 Temp 的中间变量，是为了让子类不会影响到父类的原型\n  function Temp() {}\n  Temp.prototype = Parent.prototype;\n\n  // 原型链继承\n  Child.prototype = new Temp();\n  Child.prototype.constructor = childConstructor;\n\n  // 类方法（静态方法）继承\n  Object.keys(Parent).forEach(k =&gt; {\n    Child[k] = Parent[k];\n  });\n\n  return Child;\n}\n```\n\n写个例子测试一下上面的代码\n\n```js\nfunction Animal(name) {\n    const name = name;\n    this.species = \"animal\"\n\n    this.getName = function() {\n        return name;\n    }\n}\n\nAnimal.prototype.say = function() {\n    return \"\";\n}\n\nfunction Cat() {\n    this.species = \"cat\"\n}\nCat = inherit(Animal, Cat);\nCat.prototype.say = function() {\n    return \"Miao~\";\n}\n\nconst c = new Cat(\"LALA\");\n\nconsole.log(c.species) // cat\nconsole.log(c.getName()) // LALA\nconsole.log(c.say()) // Miao~\nconsole.log(c instanceof Animal) // true\n```\n\n上面的方法不太好的一点是必须在执行了 `inherit` 之后，才能开始写子类的原型方法和静态方法。在 ES6 中，引入了类的概念，继承也可以通过 `extend` 去实现。但是一般我们都会用 Babel 或者 TypeScript 去编译成 ES5。所以我们来看下这两个工具是怎样实现继承的。以下面这段代码为例\n\n```js\nclass Animal {}\nclass Cat extends Animal {}\n```\n\n先看看 Babel 是怎么做的\n\n```js\n\"use strict\";\n\nfunction _possibleConstructorReturn(self, call) {\n  if (!self) {\n    throw new ReferenceError(\n      \"this hasn't been initialised - super() hasn't been called\"\n    );\n  }\n  return call && (typeof call === \"object\" || typeof call === \"function\")\n    ? call\n    : self;\n}\n\nfunction _inherits(subClass, superClass) {\n  if (typeof superClass !== \"function\" && superClass !== null) {\n    throw new TypeError(\n      \"Super expression must either be null or a function, not \" +\n        typeof superClass\n    );\n  }\n  subClass.prototype = Object.create(superClass && superClass.prototype, {\n    constructor: {\n      value: subClass,\n      enumerable: false,\n      writable: true,\n      configurable: true\n    }\n  });\n  if (superClass)\n    Object.setPrototypeOf\n      ? Object.setPrototypeOf(subClass, superClass)\n      : (subClass.__proto__ = superClass);\n}\n\nfunction _classCallCheck(instance, Constructor) {\n  if (!(instance instanceof Constructor)) {\n    throw new TypeError(\"Cannot call a class as a function\");\n  }\n}\n\nvar Animal = function Animal() {\n  _classCallCheck(this, Animal);\n};\n\nvar Cat = (function(_Animal) {\n  _inherits(Cat, _Animal);\n\n  function Cat() {\n    _classCallCheck(this, Cat);\n\n    return _possibleConstructorReturn(\n      this,\n      (Cat.__proto__ || Object.getPrototypeOf(Cat)).apply(this, arguments)\n    );\n  }\n\n  return Cat;\n})(Animal);\n```\n\n这里的原型继承，`Object.create` 去实现，根据 MDN 文档的 polyfill，其实就是类似我们自己实现的中间变量 `Temp`。通过 setPrototypeOf 这段去掉，结果也是正常的。\n\n看下 TypeScript 的实现\n\n```js\nvar __extends = (this && this.__extends) || (function () {\n    var extendStatics = Object.setPrototypeOf ||\n        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\n    return function (d, b) {\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar Animal = /** @class */ (function () {\n    function Animal() {\n    }\n    return Animal;\n}());\nvar Cat = /** @class */ (function (_super) {\n    __extends(Cat, _super);\n    function Cat() {\n        return _super !== null && _super.apply(this, arguments) || this;\n    }\n    return Cat;\n}(Animal));\n```\n\n这里一个比较有趣的是，通过 `({ __proto__: [] } instanceof Array` 去判断浏览器是不是支持 `__proto__`。\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

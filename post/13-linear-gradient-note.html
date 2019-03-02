@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        linear-gradient 笔记 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">linear-gradient 笔记</div><div class="sc-jzJRlG fCjyQ"><p>最近在看 <a href="https://book.douban.com/subject/26745943/">CSS 揭秘</a>，里面用 <code>linear-gradient</code> 实现了一个斜向条纹的例子</p>
+<pre><code class="css language-css">background: linear-gradient(45deg,
+                #fb3 25%, #58a 0, #58a 50%,
+                #fb3 0, #fb3 75%, #58a 0);
+</code></pre>
+<p>颜色后面的数字是具体的位置，但是多个颜色一组合就看不懂了。先是查了一下 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient">MDN</a>，还是一知半解。最后不得不翻阅对应的<a href="https://drafts.csswg.org/css-images-3/#color-stop">规范文档</a>，才算完全了解了用法。</p>
+<p>先来看看规范中的定义</p>
+<pre><code>linear-gradient() = linear-gradient(
+  [ &lt;angle&gt; | to &lt;side-or-corner&gt; ]? ,
+  &lt;color-stop-list&gt;
+)
+</code></pre>
+<p>第一个参数是角度，这里我们不多做介绍，直接来看下 <code>color-stop-list</code>。</p>
+<pre><code>&lt;color-stop-list&gt; = &lt;color-stop&gt;#{2,}
+&lt;color-stop&gt; = &lt;color&gt; &lt;length-percentage&gt;?
+</code></pre>
+<p><code>color-stop-list</code> 是由多个 <code>color-stop</code> 组成，这里的多个指的是两个或者两个以上。<code>color-stop</code> 由一个颜色和长度组成。而这里我们也着重讲下长度，也就是 <code>length-percentage</code>。</p>
+<p><code>length-percentage</code> 可以为百分比或者具体的长度，比如 <code>25px</code>，<code>50%</code> 这样。它有下面几条重要的规则，并且规则之间有优先级。命中了第一条规则就不会检查第二条。</p>
+<ol>
+<li>如果第一个 <code>color-stop</code> 没有 <code>length-percentage</code>，将其设置为 <code>0%</code>。如果是最后一个没有，将其设置为 <code>100%</code>。</li>
+<li>如果一个 <code>color-stop</code> 的 <code>length-percentage</code> 比它前面某个 <code>color-stop</code> 的值小，将这个 <code>length-percentage</code> 改为它前面所有 <code>color-stop</code> 里面的最大值。</li>
+<li>经过上面两个规则之后，如果这个 <code>color-stop</code> 还是没有值，则将其位于它前后两个 <code>color-stop</code> 的中间。</li>
+</ol>
+<p>接下来我们按照上面的规则，来看下几个具体的例子。其中 <code>=x=&gt;</code> 的 <code>x</code> 标示用了哪个几个规则。</p>
+<pre><code>1. linear-gradient(red, white 20%, blue)
+   =1=&gt;
+   linear-gradient(red 0%, white 20%, blue 100%)
+
+2. linear-gradient(red 40%, white, black, blue)
+   =13=&gt;
+   linear-gradient(red 40%, white 60%, black 80%, blue 100%)
+
+3. linear-gradient(red -50%, white, blue)
+   =13=&gt;
+   linear-gradient(red -50%, white 25%, blue 100%)
+
+4. linear-gradient(red -50px, white, blue)
+   =13=&gt;
+   linear-gradient(red -50px, white calc(-25px + 50%), blue 100%)
+
+5. linear-gradient(red 20px, white 0px, blue 40px)
+   =2=&gt;
+   linear-gradient(red 20px, white 20px, blue 40px)
+
+6. linear-gradient(red, white -50%, black 150%, blue)
+   =12=&gt;
+   linear-gradient(red 0%, white 0%, black 150%, blue 150%)
+
+7. linear-gradient(red 80px, white 0px, black, blue 100px)
+   =23=&gt;
+   linear-gradient(red 80px, white 80px, black 90px, blue 100px)
+</code></pre>
+<p>（完）</p></div><div class="sc-jTzLTM frgWBf">2017.12.22</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"linear-gradient 笔记","date":"2017.12.22"},"content":"\n最近在看 [CSS 揭秘](https://book.douban.com/subject/26745943/)，里面用 `linear-gradient` 实现了一个斜向条纹的例子\n\n```css\nbackground: linear-gradient(45deg,\n                #fb3 25%, #58a 0, #58a 50%,\n                #fb3 0, #fb3 75%, #58a 0);\n```\n\n颜色后面的数字是具体的位置，但是多个颜色一组合就看不懂了。先是查了一下 [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient)，还是一知半解。最后不得不翻阅对应的[规范文档](https://drafts.csswg.org/css-images-3/#color-stop)，才算完全了解了用法。\n\n先来看看规范中的定义\n\n```\nlinear-gradient() = linear-gradient(\n  [ &lt;angle&gt; | to &lt;side-or-corner> ]? ,\n  &lt;color-stop-list>\n)\n```\n\n第一个参数是角度，这里我们不多做介绍，直接来看下 `color-stop-list`。\n\n```\n&lt;color-stop-list> = &lt;color-stop>#{2,}\n&lt;color-stop> = &lt;color> &lt;length-percentage>?\n```\n\n`color-stop-list` 是由多个 `color-stop` 组成，这里的多个指的是两个或者两个以上。`color-stop` 由一个颜色和长度组成。而这里我们也着重讲下长度，也就是 `length-percentage`。\n\n`length-percentage` 可以为百分比或者具体的长度，比如 `25px`，`50%` 这样。它有下面几条重要的规则，并且规则之间有优先级。命中了第一条规则就不会检查第二条。\n\n1. 如果第一个 `color-stop` 没有 `length-percentage`，将其设置为 `0%`。如果是最后一个没有，将其设置为 `100%`。\n2. 如果一个 `color-stop` 的 `length-percentage` 比它前面某个 `color-stop` 的值小，将这个 `length-percentage` 改为它前面所有 `color-stop` 里面的最大值。\n3. 经过上面两个规则之后，如果这个 `color-stop` 还是没有值，则将其位于它前后两个 `color-stop` 的中间。\n\n接下来我们按照上面的规则，来看下几个具体的例子。其中 `=x=>` 的 `x` 标示用了哪个几个规则。\n\n```\n1. linear-gradient(red, white 20%, blue)\n   =1=>\n   linear-gradient(red 0%, white 20%, blue 100%)\n\n2. linear-gradient(red 40%, white, black, blue)\n   =13=>\n   linear-gradient(red 40%, white 60%, black 80%, blue 100%)\n\n3. linear-gradient(red -50%, white, blue)\n   =13=>\n   linear-gradient(red -50%, white 25%, blue 100%)\n\n4. linear-gradient(red -50px, white, blue)\n   =13=>\n   linear-gradient(red -50px, white calc(-25px + 50%), blue 100%)\n\n5. linear-gradient(red 20px, white 0px, blue 40px)\n   =2=>\n   linear-gradient(red 20px, white 20px, blue 40px)\n\n6. linear-gradient(red, white -50%, black 150%, blue)\n   =12=>\n   linear-gradient(red 0%, white 0%, black 150%, blue 150%)\n\n7. linear-gradient(red 80px, white 0px, black, blue 100px)\n   =23=>\n   linear-gradient(red 80px, white 80px, black 90px, blue 100px)\n```\n\n（完）\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>

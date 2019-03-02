@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    
+      <title>
+        Webpack DLL 用法 | Leodots
+      </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css" data-styled-components="djiuUw ehFhRk bjznky ehsBOr cKUUOL bUfeR dQozFt bxrUCS hBdBXi gQextd" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+.sc-bdVaJa {}
+
+.djiuUw{display:block;text-align:center;padding:0;margin:0;padding-top:30px;list-style:none;height:55px;margin-left:calc(100vw - 100%);}@media screen and (max-width:770px){.djiuUw{display:none;}}
+/* sc-component-id: sc-bwzfXH */
+.sc-bwzfXH {}
+
+.ehFhRk{text-align:center;font-size:18px;margin:0 25px;display:inline-block;}.ehFhRk:hover{border-bottom:2px solid #222;}.ehFhRk > a{-webkit-text-decoration:none;text-decoration:none;color:#222;}
+/* sc-component-id: sc-htpNat */
+.sc-htpNat {}
+
+.bjznky{position:relative;}@media screen and (min-width:770px){.bjznky{display:none;}}
+/* sc-component-id: sc-bxivhb */
+.sc-bxivhb {}
+
+.ehsBOr{text-align:center;background-color:#464d5c;color:#fff;padding:40px 10px;font-size:40px;}
+/* sc-component-id: sc-ifAKCX */
+.sc-ifAKCX {}
+
+.cKUUOL{color:#bee178;}
+/* sc-component-id: sc-EHOje */
+.sc-EHOje {}
+
+.bUfeR{position:absolute;right:0px;padding:19px 19px;top:0px;border-radius:50%;background-color:transparent;border-color:transparent;-webkit-transition:0.5s background-color;transition:0.5s background-color;}
+/* sc-component-id: sc-bZQynM */
+.sc-bZQynM {}
+
+.dQozFt{height:2px;width:18px;margin-bottom:3px;display:block;background-color:#bee178;}
+/* sc-component-id: sc-gzVnrw */
+.sc-gzVnrw {}
+
+.bxrUCS{position:absolute;right:20px;top:42px;width:150px;height:125px;background-color:#fff;box-shadow:rgba(0,0,0,0.117647) 0 1px 6px, rgba(0,0,0,0.239216) 0 1px 4px;-webkit-transition:0.2s;transition:0.2s;overflow:hidden;padding:10px 0;}.bxrUCS > li{list-style:none;}.bxrUCS > li > a{-webkit-text-decoration:none;text-decoration:none;color:#777;display:block;padding:10px 20px;}
+/* sc-component-id: sc-htoDjs */
+.sc-htoDjs {}
+
+.hBdBXi{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;}
+/* sc-component-id: sc-dnqmqq */
+.sc-dnqmqq {}
+
+.gQextd{color:#999;}.gQextd > a{color:#bee178 !important;-webkit-text-decoration:none;text-decoration:none;}@media screen and (min-width:770px){.gQextd > a{color:#108ee9 !important;-webkit-text-decoration:underline;text-decoration:underline;}}
+</style><style type="text/css" data-styled-components="" data-styled-components-is-local="false">/* sc-component-id: sc-global-1576189413 */
+html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;}@media screen and (min-width:770px){html{background-color:#ECF0F1;}}html,body{min-height:100vh;margin:0;padding:0;}#app{min-height:100vh;}
+</style><style type="text/css" data-styled-components="gkwKrD gIWTme iLKjzi fCjyQ kqQANZ frgWBf OaFaI" data-styled-components-is-local="true">/* sc-component-id: sc-iwsKbI */
+.sc-iwsKbI {}
+
+.gkwKrD{position:relative;min-height:100vh;}
+/* sc-component-id: sc-gZMcBi */
+.sc-gZMcBi {}
+
+.gIWTme{padding-bottom:60px;}@media screen and (min-width:770px){.gIWTme{padding:0px 0 100px;margin-left:calc(100vw - 100%);}}
+/* sc-component-id: sc-gqjmRU */
+.sc-gqjmRU {}
+
+.iLKjzi{padding:20px 15px 25px;background-color:#fff;}@media screen and (min-width:770px){.iLKjzi{box-sizing:border-box;width:768px;margin:0 auto;padding-left:40px;padding-right:40px;box-shadow:0px 30px 60px 0px #d3dde2;}}
+/* sc-component-id: sc-VigVT */
+.sc-VigVT {}
+
+.kqQANZ{margin-top:0;margin-bottom:30px;text-align:center;font-size:24px;}@media screen and (min-width:770px){.kqQANZ{font-size:30px;}}
+/* sc-component-id: sc-jTzLTM */
+.sc-jTzLTM {}
+
+.frgWBf{text-align:center;color:#999;margin-top:50px;font-size:12px;-webkit-text-decoration:underline;text-decoration:underline;}
+/* sc-component-id: sc-fjdhpX */
+.sc-fjdhpX {}
+
+.OaFaI{background-color:#fff;padding-top:60px;}
+/* sc-component-id: sc-jzJRlG */
+.sc-jzJRlG {}
+
+.fCjyQ{background-color:#fff;font-size:15px;color:#333;}@media screen and (min-width:770px){.fCjyQ{min-height:500px;}.fCjyQ a:hover{-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}}.fCjyQ a{color:#3194d0;}.fCjyQ p,.fCjyQ li{line-height:1.8;}.fCjyQ img{display:block;max-width:100%;margin:0 auto 30px;}@media screen and (min-width:770px){.fCjyQ img{max-width:500px;}}.fCjyQ code{background:#f2f2f2;padding:2px 5px;}.fCjyQ pre{background:#f2f2f2;padding:20px;overflow-x:auto;line-height:1.8;}.fCjyQ pre > code{padding:0;}.fCjyQ blockquote{margin-left:0;padding:0 1em;color:#6a737d;border-left:0.25em solid #dfe2e5;}
+</style>
+</head>
+
+<body>
+    <div id="app"><div class="sc-iwsKbI gkwKrD" data-reactroot=""><div><ul class="sc-bdVaJa djiuUw"><li class="sc-bwzfXH ehFhRk"><a href="/">首页</a></li><li class="sc-bwzfXH ehFhRk"><a href="/archive.html">归档</a></li><li class="sc-bwzfXH ehFhRk"><a href="/about.html">关于</a></li></ul><div class="sc-htpNat bjznky"><div class="sc-bxivhb ehsBOr"><span class="sc-ifAKCX cKUUOL">&lt;Leodots /&gt;</span></div><button class="sc-EHOje bUfeR"><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span><span class="sc-bZQynM dQozFt"></span></button><ul class="sc-gzVnrw bxrUCS" style="width:0;height:0"><li><a href="/">首页</a></li><li><a href="/archive.html">归档</a></li><li><a href="/about.html">关于</a></li></ul></div></div><div class="sc-gZMcBi gIWTme"><div class="sc-gqjmRU iLKjzi"><div class="sc-jzJRlG fCjyQ"><div class="sc-VigVT kqQANZ">Webpack DLL 用法</div><div class="sc-jzJRlG fCjyQ"><h2 id="">前言</h2>
+<p>在用 Webpack 打包的时候，对于一些不经常更新的第三方库，比如 <code>react</code>，<code>lodash</code>，我们希望能和自己的代码分离开，Webpack 社区有两种方案</p>
+<ul>
+<li>CommonsChunkPlugin</li>
+<li>DLLPlugin</li>
+</ul>
+<p>对于 <code>CommonsChunkPlugin</code>，webpack 每次打包实际还是需要去处理这些第三方库，只是打包完之后，能把第三方库和我们自己的代码分开。而
+<code>DLLPlugin</code> 则是能把第三方代码完全分离开，即每次只打包项目自身的代码。</p>
+<h2 id="-1">用法</h2>
+<p>要使用 <code>DLLPlugin</code>，需要额外新建一个配置文件。所以对于用这种方式打包的项目，一般会有下面两个配置文件</p>
+<ul>
+<li>webpack.config.js</li>
+<li>webpack.dll.config.js</li>
+</ul>
+<p>先来看下 <code>webpack.dll.config.js</code></p>
+<pre><code class="js language-js">const webpack = require('webpack')
+const library = '[name]_lib'
+const path = require('path')
+
+module.exports = {
+  entry: {
+    vendors: ['react', 'lodash']
+  },
+
+  output: {
+    filename: '[name].dll.js',
+    path: 'dist/',
+    library
+  },
+
+  plugins: [
+    new webpack.DllPlugin({
+      path: path.join(__dirname, 'dist/[name]-manifest.json'),
+      // This must match the output.library option above
+      name: library
+    }),
+  ],
+}
+</code></pre>
+<p>再改下 <code>webpack.config.js</code> 文件</p>
+<pre><code class="js language-js">const webpack = require('webpack')
+
+module.exports = {
+  entry: {
+    app: './src/index'
+  },
+  output: {
+    filename: 'app.bundle.js',
+    path: 'dist/',
+  },
+  plugins: [
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: require('./dist/vendors-manifest.json')
+    })
+  ]
+}
+</code></pre>
+<p><code>manifest: require('./dist/vendors-manifest.json')</code> 这里的路径要和 <code>webpack.dll.config.js</code> 里面的对应。</p>
+<p>然后运行</p>
+<pre><code>$ webpack --config webpack.dll.config.js
+$ webpack --config webpack.config.js
+</code></pre>
+<p>然后你的 html 文件像下面这样引用</p>
+<pre><code class="html language-html">&lt;script src="/dist/vendors.dll.js"&gt;&lt;/script&gt;
+&lt;script src="/dist/app.bundle.js"&gt;&lt;/script&gt;
+</code></pre>
+<h2 id="dlllinkplugin">DLL Link Plugin</h2>
+<p>上面的用法也存在一些不方便的地方，比如在 <code>webpack.config.js</code> 中要明确指出对应的 <code>manifest.json</code> 文件。还有当 DLL 需要更新的时候，比如 <code>react</code> 升级了，或者加入新的第三方库，都需要手动像下面这样编译一次。</p>
+<pre><code>$ webpack --config webpack.dll.config.js
+</code></pre>
+<p>因为上面这些问题，所以基于官方的 <code>DllReferencePlugin</code>，我写了一个打包的插件，<a href="https://github.com/clinyong/dll-link-webpack-plugin">Dll Link Plugin</a>。</p>
+<p>使用这个插件，只需要对 <code>webpack.config.js</code> 作下小小的改动</p>
+<pre><code class="js language-js">const webpack = require('webpack')
+const DllLinkPlugin = require('dll-link-webpack-plugin')
+
+module.exports = {
+  // ...
+  plugins: [
+    new DllLinkPlugin({
+      config: require('webpack.dll.config.js')
+    })
+  ]
+}
+</code></pre>
+<p>直接替换掉 <code>DllReferencePlugin</code>，然后传入对应的 DLL 配置文件就可以了。每次打包的时候，只需要运行</p>
+<pre><code>$ webpack --config webpack.config.js
+</code></pre>
+<p>上面的命令便会自动生成对应的 vendors 文件，需要更新的时候，也会自动更新。</p></div><div class="sc-jTzLTM frgWBf">2017.05.21</div></div><div class="sc-fjdhpX OaFaI" id="disqus_thread"></div></div></div><div class="sc-htoDjs hBdBXi"><span class="sc-dnqmqq gQextd">Powered by <a href="https://github.com/clinyong/cubi">Cubi</a>,  </span><span class="sc-dnqmqq gQextd">Hosted by <a href="https://pages.coding.me">Coding Pages</a></span></div></div></div>
+    
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+      </script>
+      
+    <script>
+		
+    </script>
+    <script>
+		var INIT_PROPS = {"content":{"meta":{"title":"Webpack DLL 用法","date":"2017.05.21"},"content":"\n## 前言\n\n在用 Webpack 打包的时候，对于一些不经常更新的第三方库，比如 `react`，`lodash`，我们希望能和自己的代码分离开，Webpack 社区有两种方案\n\n- CommonsChunkPlugin\n- DLLPlugin\n\n对于 `CommonsChunkPlugin`，webpack 每次打包实际还是需要去处理这些第三方库，只是打包完之后，能把第三方库和我们自己的代码分开。而\n`DLLPlugin` 则是能把第三方代码完全分离开，即每次只打包项目自身的代码。\n\n## 用法\n\n要使用 `DLLPlugin`，需要额外新建一个配置文件。所以对于用这种方式打包的项目，一般会有下面两个配置文件\n\n- webpack.config.js\n- webpack.dll.config.js\n\n先来看下 `webpack.dll.config.js`\n\n```js\nconst webpack = require('webpack')\nconst library = '[name]_lib'\nconst path = require('path')\n\nmodule.exports = {\n  entry: {\n    vendors: ['react', 'lodash']\n  },\n\n  output: {\n    filename: '[name].dll.js',\n    path: 'dist/',\n    library\n  },\n\n  plugins: [\n    new webpack.DllPlugin({\n      path: path.join(__dirname, 'dist/[name]-manifest.json'),\n      // This must match the output.library option above\n      name: library\n    }),\n  ],\n}\n```\n\n再改下 `webpack.config.js` 文件\n\n```js\nconst webpack = require('webpack')\n\nmodule.exports = {\n  entry: {\n    app: './src/index'\n  },\n  output: {\n    filename: 'app.bundle.js',\n    path: 'dist/',\n  },\n  plugins: [\n    new webpack.DllReferencePlugin({\n      context: __dirname,\n      manifest: require('./dist/vendors-manifest.json')\n    })\n  ]\n}\n```\n\n`manifest: require('./dist/vendors-manifest.json')` 这里的路径要和 `webpack.dll.config.js` 里面的对应。\n\n然后运行\n\n```\n$ webpack --config webpack.dll.config.js\n$ webpack --config webpack.config.js\n```\n\n然后你的 html 文件像下面这样引用\n\n```html\n&lt;script src=\"/dist/vendors.dll.js\"&gt;&lt;/script>\n&lt;script src=\"/dist/app.bundle.js\">&lt;/script>\n```\n\n## DLL Link Plugin\n\n上面的用法也存在一些不方便的地方，比如在 `webpack.config.js` 中要明确指出对应的 `manifest.json` 文件。还有当 DLL 需要更新的时候，比如 `react` 升级了，或者加入新的第三方库，都需要手动像下面这样编译一次。\n\n```\n$ webpack --config webpack.dll.config.js\n```\n\n因为上面这些问题，所以基于官方的 `DllReferencePlugin`，我写了一个打包的插件，[Dll Link Plugin](https://github.com/clinyong/dll-link-webpack-plugin)。\n\n使用这个插件，只需要对 `webpack.config.js` 作下小小的改动\n\n```js\nconst webpack = require('webpack')\nconst DllLinkPlugin = require('dll-link-webpack-plugin')\n\nmodule.exports = {\n  // ...\n  plugins: [\n    new DllLinkPlugin({\n      config: require('webpack.dll.config.js')\n    })\n  ]\n}\n```\n\n直接替换掉 `DllReferencePlugin`，然后传入对应的 DLL 配置文件就可以了。每次打包的时候，只需要运行\n\n```\n$ webpack --config webpack.config.js\n```\n\n上面的命令便会自动生成对应的 vendors 文件，需要更新的时候，也会自动更新。\n"}};
+    </script>
+    
+    <script src=/js/vendors.f58cabc9.dll.js></script>
+    
+    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    
+    <script src=/js/post.9e5c2604.js></script>
+    
+</body>
+
+</html>
