@@ -189,11 +189,11 @@ module.exports = {
 		var INIT_PROPS = {"content":{"meta":{"title":"Webpack DLL 用法","date":"2017.05.21"},"content":"\n## 前言\n\n在用 Webpack 打包的时候，对于一些不经常更新的第三方库，比如 `react`，`lodash`，我们希望能和自己的代码分离开，Webpack 社区有两种方案\n\n- CommonsChunkPlugin\n- DLLPlugin\n\n对于 `CommonsChunkPlugin`，webpack 每次打包实际还是需要去处理这些第三方库，只是打包完之后，能把第三方库和我们自己的代码分开。而\n`DLLPlugin` 则是能把第三方代码完全分离开，即每次只打包项目自身的代码。\n\n## 用法\n\n要使用 `DLLPlugin`，需要额外新建一个配置文件。所以对于用这种方式打包的项目，一般会有下面两个配置文件\n\n- webpack.config.js\n- webpack.dll.config.js\n\n先来看下 `webpack.dll.config.js`\n\n```js\nconst webpack = require('webpack')\nconst library = '[name]_lib'\nconst path = require('path')\n\nmodule.exports = {\n  entry: {\n    vendors: ['react', 'lodash']\n  },\n\n  output: {\n    filename: '[name].dll.js',\n    path: 'dist/',\n    library\n  },\n\n  plugins: [\n    new webpack.DllPlugin({\n      path: path.join(__dirname, 'dist/[name]-manifest.json'),\n      // This must match the output.library option above\n      name: library\n    }),\n  ],\n}\n```\n\n再改下 `webpack.config.js` 文件\n\n```js\nconst webpack = require('webpack')\n\nmodule.exports = {\n  entry: {\n    app: './src/index'\n  },\n  output: {\n    filename: 'app.bundle.js',\n    path: 'dist/',\n  },\n  plugins: [\n    new webpack.DllReferencePlugin({\n      context: __dirname,\n      manifest: require('./dist/vendors-manifest.json')\n    })\n  ]\n}\n```\n\n`manifest: require('./dist/vendors-manifest.json')` 这里的路径要和 `webpack.dll.config.js` 里面的对应。\n\n然后运行\n\n```\n$ webpack --config webpack.dll.config.js\n$ webpack --config webpack.config.js\n```\n\n然后你的 html 文件像下面这样引用\n\n```html\n&lt;script src=\"/dist/vendors.dll.js\"&gt;&lt;/script>\n&lt;script src=\"/dist/app.bundle.js\">&lt;/script>\n```\n\n## DLL Link Plugin\n\n上面的用法也存在一些不方便的地方，比如在 `webpack.config.js` 中要明确指出对应的 `manifest.json` 文件。还有当 DLL 需要更新的时候，比如 `react` 升级了，或者加入新的第三方库，都需要手动像下面这样编译一次。\n\n```\n$ webpack --config webpack.dll.config.js\n```\n\n因为上面这些问题，所以基于官方的 `DllReferencePlugin`，我写了一个打包的插件，[Dll Link Plugin](https://github.com/clinyong/dll-link-webpack-plugin)。\n\n使用这个插件，只需要对 `webpack.config.js` 作下小小的改动\n\n```js\nconst webpack = require('webpack')\nconst DllLinkPlugin = require('dll-link-webpack-plugin')\n\nmodule.exports = {\n  // ...\n  plugins: [\n    new DllLinkPlugin({\n      config: require('webpack.dll.config.js')\n    })\n  ]\n}\n```\n\n直接替换掉 `DllReferencePlugin`，然后传入对应的 DLL 配置文件就可以了。每次打包的时候，只需要运行\n\n```\n$ webpack --config webpack.config.js\n```\n\n上面的命令便会自动生成对应的 vendors 文件，需要更新的时候，也会自动更新。\n"}};
     </script>
     
-    <script src=/js/vendors.f58cabc9.dll.js></script>
+    <script src=/js/vendors.094c268b.dll.js></script>
     
-    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    <script src=/js/__post.a85ba19a.dll.js></script>
     
-    <script src=/js/post.9e5c2604.js></script>
+    <script src=/js/post.cb81a6af.js></script>
     
 </body>
 

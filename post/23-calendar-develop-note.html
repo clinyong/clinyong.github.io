@@ -148,11 +148,11 @@ for (let i = 0; i &lt; paddingLen; i++) {
 		var INIT_PROPS = {"content":{"meta":{"title":"日历组件开发笔记","date":"2018.07.15"},"content":"\n花了不到一天的时间写了一个日历的[组件](https://github.com/clinyong/react-dates)，写完之后才发现，实现日历的基本功能要比我想象的简单很多。\n\n![](http://ol07x5ssf.bkt.clouddn.com/WechatIMG30374.jpeg)\n\n样式直接用的 antd，这里主要记录下功能实现上面比较麻烦的地方。\n\n闰年和非闰年\n\n```ts\nconst LEAP_MONTH_DAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];\nconst NORMAL_MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];\n\nfunction getMonthDays(year: number, month: number): number {\n  if (year % 4 === 0) {\n    return LEAP_MONTH_DAYS[month];\n  } else {\n    return NORMAL_MONTH_DAYS[month];\n  }\n}\n```\n\n通过两个数组，记录每个月的天数，判断一下年份是不是能被 4 整除，获取对应月份的天数。\n\n每个月开始的第一天是星期几\n\n```ts\nfunction getMonthStartDay(year: number, month: number): number {\n  return new Date(year, month, 1).getDay();\n}\n\nconst paddingLen = getMonthStartDay(year, month);\nconst displayList: DisplayItem[] = [];\nfor (let i = 0; i &lt; paddingLen; i++) {\n    displayList.push({\n    key: \"padding\" + i,\n    value: \"\",\n    type: CellItemType.Padding\n    });\n}\n```\n\n知道是星期几之后，把前面的元素用 `CellItemType.Padding` 类型的空数值填充，起到占位的作用。\n\n上个月和下个月的切换\n\n```ts\nnextMonth = () =&gt; {\n    const { date } = this.state;\n\n    const month = date.getMonth();\n    if (month === 11) {\n        date.setFullYear(date.getFullYear() + 1, 0);\n    } else {\n        date.setMonth(month + 1);\n    }\n\n    this.setNewDate(date);\n};\n```\n\n当在切换下个月的时候，如果是最后一个月份，需要把年份 +1。类似的，切换上个月，需要判断是不是第一个月。\n\n（完）\n"}};
     </script>
     
-    <script src=/js/vendors.f58cabc9.dll.js></script>
+    <script src=/js/vendors.094c268b.dll.js></script>
     
-    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    <script src=/js/__post.a85ba19a.dll.js></script>
     
-    <script src=/js/post.9e5c2604.js></script>
+    <script src=/js/post.cb81a6af.js></script>
     
 </body>
 

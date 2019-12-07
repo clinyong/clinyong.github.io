@@ -149,11 +149,11 @@ console.log(React);
 		var INIT_PROPS = {"content":{"meta":{"title":"由 allowSyntheticDefaultImports 引起的思考","date":"2018.12.01"},"content":"\n这段时间团队开始在使用 TypeScript，有些童鞋会像下面这样写\n\n```ts\nimport React from \"react\";\n\nconsole.log(React);\n```\n\n因为 `react` 是以 commonJS 的形式导出的，所以上面的代码会报错\n\n```\nModule '\"react\"' has no default export.\n```\n\n提示 `react` 并没有 `default` 字段导出。这个问题解决也很简单，换成下面这种形式的写法就可以了。\n\n```ts\nimport * as React from \"react\";\n```\n\n当时和同事在讨论，说 babel 允许第一种写法，因为帮你做了兼容。而 TS 是不能这样写的。后面仔细看了文档，发现自己的观点是不对的。\n\nTS 是允许你这么写的，但是需要在 `tsconfig.json` 中配置两个字段\n\n```json\n{\n    \"allowSyntheticDefaultImports\": true,\n    \"esModuleInterop\": true\n}\n```\n\n先说下 `allowSyntheticDefaultImports`，这个字段实际只起到检查的作用，不会对编译后的代码有任何影响。\n\n而 `esModuleInterop` 就不一样，实际上开启这个字段的时候，默认也是会开启 `allowSyntheticDefaultImports`，并且对于编译后的代码也做了兼容。还要注意的是这个字段只有当把代码编译成 commonJS 的时候才会起作用。\n\n所以对于第一种写法，如果配置是下面这样\n\n```json\n{\n    \"module\": \"commonjs\",\n    \"esModuleInterop\": true\n}\n```\n\n编译之后的代码为\n\n```js\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar react_1 = __importDefault(require(\"react\"));\nconsole.log(react_1.default);\n```\n\n可以看到加了很多兼容性的代码，如果配置换成下面这样\n\n```json\n{\n    \"module\": \"es2015\",\n     \"allowSyntheticDefaultImports\": true,\n    \"esModuleInterop\": true\n}\n```\n\n因为导出模块是 `es2015`，实际会忽略 `esModuleInterop` 字段，所以要加上 `allowSyntheticDefaultImports` 防止报错，输出的代码为\n\n```js\nimport React from \"react\";\nconsole.log(React);\n```\n\n可以看到和源代码一模一样。实际上 babel 的行为也是这样的，只有当导出 commonjs 的时候，才会加上兼容性的代码，如果是 ES6 的格式则原样输出。\n\n因为 webpack 的 tree shaking，所以一般我们都会让 babel 或者 TS 把模块导出成 ES6。而 npm 上面绝大部分的包都是 commonjs 形式的，那是谁做了这个兼容呢。答案也很明显，就是 webpack。\n\n只要是 webpack 能识别的模块格式，不管是 commonjs，ES6 还是 amd，webpack 都能让它们正常地相互引用。\n\n（完）\n"}};
     </script>
     
-    <script src=/js/vendors.f58cabc9.dll.js></script>
+    <script src=/js/vendors.094c268b.dll.js></script>
     
-    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    <script src=/js/__post.a85ba19a.dll.js></script>
     
-    <script src=/js/post.9e5c2604.js></script>
+    <script src=/js/post.cb81a6af.js></script>
     
 </body>
 

@@ -114,11 +114,11 @@ html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hirag
 		var INIT_PROPS = {"content":{"meta":{"title":"TypeScript 第三方库定义","date":"2018.11.03"},"content":"\n当你在 `tsconfig.json` 里面设置 `noImplicitAny` 为 `true` 的时候，如果引入的第三方库没有定义，则 TS 在编译的时候会报错。比如我们项目里面用到了 `react`\n\n```ts\nimport * as React from \"react\";\n```\n\n编译的时候会报错\n\n```\nCould not find a declaration file for module 'react'.\n```\n\n对于 `react` 这样流行的库，你只需要\n\n```\n$ yarn add @types/react -D\n```\n\n安装一下社区提供的依赖就可以了。而对于一些不怎么流行的库，就需要你自己手写定义了。当然给第三方库的每个字段都定义好，想想也是一件很麻烦的事情。所以你可以在你的 `.d.ts` 文件里面把这个库显式声明为 `any`。\n\n```ts\ndeclare module \"react\";\n```\n\n这样编译就可以通过了。\n\n（完）\n"}};
     </script>
     
-    <script src=/js/vendors.f58cabc9.dll.js></script>
+    <script src=/js/vendors.094c268b.dll.js></script>
     
-    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    <script src=/js/__post.a85ba19a.dll.js></script>
     
-    <script src=/js/post.9e5c2604.js></script>
+    <script src=/js/post.cb81a6af.js></script>
     
 </body>
 

@@ -153,11 +153,11 @@ html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hirag
 		var INIT_PROPS = {"content":{"meta":{"title":"linear-gradient 笔记","date":"2017.12.22"},"content":"\n最近在看 [CSS 揭秘](https://book.douban.com/subject/26745943/)，里面用 `linear-gradient` 实现了一个斜向条纹的例子\n\n```css\nbackground: linear-gradient(45deg,\n                #fb3 25%, #58a 0, #58a 50%,\n                #fb3 0, #fb3 75%, #58a 0);\n```\n\n颜色后面的数字是具体的位置，但是多个颜色一组合就看不懂了。先是查了一下 [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient)，还是一知半解。最后不得不翻阅对应的[规范文档](https://drafts.csswg.org/css-images-3/#color-stop)，才算完全了解了用法。\n\n先来看看规范中的定义\n\n```\nlinear-gradient() = linear-gradient(\n  [ &lt;angle&gt; | to &lt;side-or-corner> ]? ,\n  &lt;color-stop-list>\n)\n```\n\n第一个参数是角度，这里我们不多做介绍，直接来看下 `color-stop-list`。\n\n```\n&lt;color-stop-list> = &lt;color-stop>#{2,}\n&lt;color-stop> = &lt;color> &lt;length-percentage>?\n```\n\n`color-stop-list` 是由多个 `color-stop` 组成，这里的多个指的是两个或者两个以上。`color-stop` 由一个颜色和长度组成。而这里我们也着重讲下长度，也就是 `length-percentage`。\n\n`length-percentage` 可以为百分比或者具体的长度，比如 `25px`，`50%` 这样。它有下面几条重要的规则，并且规则之间有优先级。命中了第一条规则就不会检查第二条。\n\n1. 如果第一个 `color-stop` 没有 `length-percentage`，将其设置为 `0%`。如果是最后一个没有，将其设置为 `100%`。\n2. 如果一个 `color-stop` 的 `length-percentage` 比它前面某个 `color-stop` 的值小，将这个 `length-percentage` 改为它前面所有 `color-stop` 里面的最大值。\n3. 经过上面两个规则之后，如果这个 `color-stop` 还是没有值，则将其位于它前后两个 `color-stop` 的中间。\n\n接下来我们按照上面的规则，来看下几个具体的例子。其中 `=x=>` 的 `x` 标示用了哪个几个规则。\n\n```\n1. linear-gradient(red, white 20%, blue)\n   =1=>\n   linear-gradient(red 0%, white 20%, blue 100%)\n\n2. linear-gradient(red 40%, white, black, blue)\n   =13=>\n   linear-gradient(red 40%, white 60%, black 80%, blue 100%)\n\n3. linear-gradient(red -50%, white, blue)\n   =13=>\n   linear-gradient(red -50%, white 25%, blue 100%)\n\n4. linear-gradient(red -50px, white, blue)\n   =13=>\n   linear-gradient(red -50px, white calc(-25px + 50%), blue 100%)\n\n5. linear-gradient(red 20px, white 0px, blue 40px)\n   =2=>\n   linear-gradient(red 20px, white 20px, blue 40px)\n\n6. linear-gradient(red, white -50%, black 150%, blue)\n   =12=>\n   linear-gradient(red 0%, white 0%, black 150%, blue 150%)\n\n7. linear-gradient(red 80px, white 0px, black, blue 100px)\n   =23=>\n   linear-gradient(red 80px, white 80px, black 90px, blue 100px)\n```\n\n（完）\n"}};
     </script>
     
-    <script src=/js/vendors.f58cabc9.dll.js></script>
+    <script src=/js/vendors.094c268b.dll.js></script>
     
-    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    <script src=/js/__post.a85ba19a.dll.js></script>
     
-    <script src=/js/post.9e5c2604.js></script>
+    <script src=/js/post.cb81a6af.js></script>
     
 </body>
 

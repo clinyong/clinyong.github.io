@@ -180,11 +180,11 @@ html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hirag
 		var INIT_PROPS = {"content":{"meta":{"title":"inline block 元素的基线位置","date":"2018.05.26"},"content":"\n今天碰到了一个垂直对齐的问题\n\n```html\n&lt;style&gt;\n    .content {\n        display: inline-block;\n        width: 100px;\n        height: 30px;\n        border: 1px solid black;\n    }\n&lt;/style>\n\n&lt;div class=\"box1\">\n    &lt;span>xxx&lt;/span>\n    &lt;div class=\"content\">\n    &lt;/div>\n&lt;/div>\n\n&lt;div class=\"box2\">\n    &lt;span>xxx&lt;/span>\n    &lt;div class=\"content\">\n    xxx\n    &lt;/div>\n&lt;/div>\n```\n\n`box1` 里面左边的文字和右边盒子的下方对齐，`box2` 中左边的文字和右边盒子的上方对齐。一开始觉得特别奇怪，后面想起了在张鑫旭大大的[CSS世界](https://book.douban.com/subject/27615777/)里面有提到\n\n> 一个 inline-block 元素，如果里面没有内联元素，或者 overflow 不是 visible，则该元素的基线就是其 margin 底边缘；否则其基线就是元素里面最后一行内联元素的基线。\n\n虽然这本书非常的好，但是还是想着规范里面有没有对这种情况的说明呢？搜了一下谷歌，[确实有](https://www.w3.org/TR/CSS21/visudet.html#inlineblock-width)\n\n> The baseline of an 'inline-block' is the baseline of its last line box in the normal flow, unless it has either no in-flow line boxes or if its 'overflow' property has a computed value other than 'visible', in which case the baseline is the bottom margin edge.\n\n为了验证确实是与 margin 的底边缘对齐，设置一个大一点的 margin\n\n```html\n&lt;style>\n    .content {\n        display: inline-block;\n        width: 100px;\n        height: 30px;\n        border: 1px solid black;\n        margin-bottom: 20px;\n    }\n&lt;/style>\n\n&lt;div class=\"box\">\n    &lt;span>xxx&lt;/span>\n    &lt;div class=\"content\">\n    &lt;/div>\n&lt;/div>\n```\n\n`overflow` 的值不为 `visible` 的情况\n\n```html\n&lt;style>\n    .content {\n        display: inline-block;\n        width: 100px;\n        height: 30px;\n        border: 1px solid black;\n        margin-bottom: 20px;\n        overflow: hidden;\n    }\n&lt;/style>\n\n&lt;div class=\"box\">\n    &lt;span>xxx&lt;/span>\n    &lt;div class=\"content\">\n    xxx\n    &lt;/div>\n&lt;/div>\n```\n\n这里还能引出一个比较常见的问题，就是图片和文字放一起会出现底边距的情况\n\n```html\n&lt;style>\n    .container {\n        border: 1px solid black;\n    }\n&lt;/style>\n\n&lt;div class=\"container\">\n    &lt;img src=\"https://developer.cdn.mozilla.net/media/img/mdn-logo-sm.png\">\n&lt;/div>\n```\n\n可以看到图片的底部有边距，这是因为图片默认是 `inline-block` 的元素，这时候图片的 margin 底边距会与 [strut](https://www.w3.org/TR/CSS21/visudet.html#strut) 产生对齐。这里的 `strut` 相当于前面的 `xxx` 内联元素，是浏览器自动产生的。\n\n知道了 `inline-block` 元素的基线位置之后，自然会想到那 `block` 元素的基线呢？这里讨论基线主要是为了知道如何与同一行元素进行垂直对齐，而 `block` 元素默认就是占据一整行，所以也就不存在垂直对齐的情况。\n"}};
     </script>
     
-    <script src=/js/vendors.f58cabc9.dll.js></script>
+    <script src=/js/vendors.094c268b.dll.js></script>
     
-    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    <script src=/js/__post.a85ba19a.dll.js></script>
     
-    <script src=/js/post.9e5c2604.js></script>
+    <script src=/js/post.cb81a6af.js></script>
     
 </body>
 

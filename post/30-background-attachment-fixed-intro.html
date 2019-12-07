@@ -141,11 +141,11 @@ html{position:relative;background-color:#464d5c;font-family:'PingFang SC','Hirag
 		var INIT_PROPS = {"content":{"meta":{"title":"一个有趣的 CSS 属性 background-attachment","date":"2018.07.29"},"content":"\n今天在看性能方面的问题的时候，发现还有一个 `background-attachment` 的 CSS 属性。看到 [w3schools](https://www.w3schools.com/howto/howto_css_parallax.asp) 上面的介绍，能实现一种挺酷的效果，叫做 Parallax Scrolling。具体可以看下 [demo](https://www.w3schools.com/howto/tryhow_css_parallax_demo.htm)。\n\n先看下一段简单的 HTML\n\n```html\n&lt;style&gt;\n    html,\n    body {\n        height: 100%;\n        margin: 0;\n        padding: 0;\n    }\n\n    .img {\n        background-position: center;\n        background-size: cover;\n    }\n\n    .img1 {\n        background-image: url(https://www.w3schools.com/howto/img_parallax.jpg);\n        min-height: 100%;\n    }\n\n    .img2 {\n        background-image: url(https://www.w3schools.com/howto/img_parallax2.jpg);\n        min-height: 400px;\n    }\n&lt;/style>\n\n&lt;body>\n    &lt;div class=\"img img1\">&lt;/div>\n    &lt;div class=\"img img2\">&lt;/div>\n&lt;/body>\n```\n\n这段代码很普通，当页面滚动的时候，我们的图片会随着滚动。然后加下 `background-attachment` 属性\n\n```css\n.img {\n    background-position: center;\n    background-size: cover;\n    background-attachment: fixed;\n}\n```\n\n这时候就出现开头说的那种很酷的效果。具体表现就是，`div` 会随着滚动，但是 `div` 的背景图片的位置一直保持不变。\n\n打开 Chrome 开发者工具，勾选上 [Paint flashing](https://developer.chrome.com/devtools/docs/rendering-settings)，滚动的时候，会发现整个页面都在重绘。如果不加 `background-attachment` 是不会有这个问题。\n\n（完）\n"}};
     </script>
     
-    <script src=/js/vendors.f58cabc9.dll.js></script>
+    <script src=/js/vendors.094c268b.dll.js></script>
     
-    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    <script src=/js/__post.a85ba19a.dll.js></script>
     
-    <script src=/js/post.9e5c2604.js></script>
+    <script src=/js/post.cb81a6af.js></script>
     
 </body>
 

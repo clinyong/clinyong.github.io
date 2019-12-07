@@ -164,11 +164,11 @@ arr[3]: 3987985436
 		var INIT_PROPS = {"content":{"meta":{"title":"数组越界引起的无限循环","date":"2018.12.01"},"content":"\n有下面这样一段 C 语言代码\n\n```c\nint main(int argc, char* argv[]){\n    int i = 0;\n    int arr[3] = {0};\n    for(; i&lt;=3; i++){\n        arr[i] = 0;\n        printf(\"hello world\\n\");\n    }\n    return 0;\n}\n```\n\n因为数组越界，所以会导致一直打印 `hello world`。我们可以在终端实际运行一下。\n\n```\n$ gcc -fno-stack-protector main.c -o main\n$ ./main\nhello world\nhello world\nhello world\nhello world\n...\n```\n\n因为现代编译器都有溢出保护机制，所以需要加上 `-fno-stack-protector`。这里是因为 `arr[3]` 越界了，而且刚好指向变量 `i`。我们可以把各个变量的内存地址打印出来，验证一下，修改上面的代码。\n\n```c\nint main(int argc, char* argv[]){\n    int i = 0;\n    int arr[3] = {0};\n    printf(\"i: %u\\n\",&i);\n    for(; i&lt;=2; i++){\n        printf(\"arr[%d]: %u\\n\", i, &arr[i]);\n        arr[i] = 0;\n    }\n    return 0;\n}\n```\n\n重新编译一下。\n\n```\n$ gcc -fno-stack-protector main.c -o main\n$ ./main\ni: 3846382636\narr[0]: 3846382624\narr[1]: 3846382628\narr[2]: 3846382632\n```\n\n可以看到 `arr[2]` 的地址加上 4 就是 `i` 的地址，所以 `arr[3]` 实际指向的就是 `i`。到这里为止，一开始那段无限循环的原因也算找到了。\n\n当然我们还可以多尝试几种情况，比如更换下数组和变量 `i` 的声明顺序。\n\n```c\nint arr[3] = {0};\nint i = 0;\n```\n\n然后再次打印内存地址。\n\n```\ni: 3824608288\narr[0]: 3824608292\narr[1]: 3824608296\narr[2]: 3824608300\n```\n\n可以看到即使数组越界，也不会造成无限循环。除了声明顺序外，因为 64 位操作系统会进行 8 字节对齐，所以我们给数组增加多一个元素，让其长度为 4。\n\n```c\nint i = 0;\nint arr[4] = {0};\n```\n\n再看下内存地址。\n\n```\ni: 3987985452\narr[0]: 3987985424\narr[1]: 3987985428\narr[2]: 3987985432\narr[3]: 3987985436\n```\n\n可以看到变量 i 的地址不会紧跟着数组，所以同样不会无限循环。\n\n（完）\n"}};
     </script>
     
-    <script src=/js/vendors.f58cabc9.dll.js></script>
+    <script src=/js/vendors.094c268b.dll.js></script>
     
-    <script src=/js/__post.6c7dc1cb.dll.js></script>
+    <script src=/js/__post.a85ba19a.dll.js></script>
     
-    <script src=/js/post.9e5c2604.js></script>
+    <script src=/js/post.cb81a6af.js></script>
     
 </body>
 
